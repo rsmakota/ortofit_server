@@ -7,8 +7,8 @@ import java.io.Serializable;
 @Table(name = "countries", schema = "public", catalog = "ortofit")
 public class Country implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     @Column(nullable = false)
     private String name;
     @Column(length = 4, nullable = false)
@@ -26,11 +26,11 @@ public class Country implements Serializable{
 
     @Id
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
