@@ -6,19 +6,12 @@ import java.io.Serializable;
 @Entity
 @Table(name = "countries", schema = "public", catalog = "ortofit")
 public class Country implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(nullable = false)
     private String name;
-    @Column(length = 4, nullable = false)
     private String prefix;
-    @Column(nullable = false)
     private String pattern;
-    @Column(length = 2)
     private String iso2;
-    @Column()
-    private int length;
+    private Integer length;
 
     public void setLength(Integer length) {
         this.length = length;
@@ -35,7 +28,7 @@ public class Country implements Serializable{
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -45,7 +38,7 @@ public class Country implements Serializable{
     }
 
     @Basic
-    @Column(name = "prefix")
+    @Column(name = "prefix", length = 4, nullable = false)
     public String getPrefix() {
         return prefix;
     }
@@ -55,7 +48,7 @@ public class Country implements Serializable{
     }
 
     @Basic
-    @Column(name = "pattern")
+    @Column(name = "pattern", nullable = false)
     public String getPattern() {
         return pattern;
     }
@@ -65,7 +58,7 @@ public class Country implements Serializable{
     }
 
     @Basic
-    @Column(name = "iso2")
+    @Column(name = "iso2", length = 2)
     public String getIso2() {
         return iso2;
     }
@@ -76,12 +69,8 @@ public class Country implements Serializable{
 
     @Basic
     @Column(name = "length")
-    public int getLength() {
+    public Integer getLength() {
         return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
     }
 
     @Override
