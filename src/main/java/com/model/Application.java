@@ -12,17 +12,27 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "applications", schema = "public", catalog = "ortofit")
 public class Application implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
     private Country country;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_direction_id")
     private ClientDirection clientDirection;
+    @Column(name = "name")
     private String name;
+    @Column(name = "created")
     private Timestamp created;
+    @Column(name = "type")
     private String type;
+    @Column(name = "flow_service_name")
     private String flowServiceName;
+    @Column(name = "config")
     private String config;
 
-    @Id
-    @Column(name = "id")
+
     public Integer getId() {
         return id;
     }
@@ -31,8 +41,6 @@ public class Application implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "country_id")
     public Country getCountry() {
         return country;
     }
@@ -41,8 +49,6 @@ public class Application implements Serializable {
         this.country = country;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "client_direction_id")
     public ClientDirection getClientDirection() {
         return clientDirection;
     }
@@ -51,8 +57,6 @@ public class Application implements Serializable {
         this.clientDirection = clientDirection;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -61,8 +65,6 @@ public class Application implements Serializable {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "created")
     public Timestamp getCreated() {
         return created;
     }
@@ -71,8 +73,6 @@ public class Application implements Serializable {
         this.created = created;
     }
 
-    @Basic
-    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -81,8 +81,6 @@ public class Application implements Serializable {
         this.type = type;
     }
 
-    @Basic
-    @Column(name = "flow_service_name")
     public String getFlowServiceName() {
         return flowServiceName;
     }
@@ -91,8 +89,6 @@ public class Application implements Serializable {
         this.flowServiceName = flowServiceName;
     }
 
-    @Basic
-    @Column(name = "config")
     public String getConfig() {
         return config;
     }

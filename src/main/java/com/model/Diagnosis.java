@@ -12,13 +12,17 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "diagnoses", schema = "public", catalog = "ortofit")
 public class Diagnosis implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
     private Person person;
+    @Column(name = "created")
     private Timestamp created;
+    @Column(name = "description")
     private String description;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -27,8 +31,6 @@ public class Diagnosis implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "person_id")
     public Person getPerson() {
         return person;
     }
@@ -37,8 +39,6 @@ public class Diagnosis implements Serializable {
         this.person = person;
     }
 
-    @Basic
-    @Column(name = "created")
     public Timestamp getCreated() {
         return created;
     }
@@ -47,8 +47,6 @@ public class Diagnosis implements Serializable {
         this.created = created;
     }
 
-    @Basic
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }

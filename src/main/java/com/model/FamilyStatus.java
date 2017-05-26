@@ -1,6 +1,7 @@
 package com.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -9,14 +10,17 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "family_statuses", schema = "public", catalog = "ortofit")
-public class FamilyStatus {
+public class FamilyStatus implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "general")
     private Boolean general;
+    @Column(name = "alias")
     private String alias;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -25,8 +29,6 @@ public class FamilyStatus {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -35,8 +37,6 @@ public class FamilyStatus {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "general")
     public Boolean getGeneral() {
         return general;
     }
@@ -45,8 +45,6 @@ public class FamilyStatus {
         this.general = general;
     }
 
-    @Basic
-    @Column(name = "alias")
     public String getAlias() {
         return alias;
     }

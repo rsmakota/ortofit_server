@@ -12,13 +12,16 @@ import java.util.Set;
 @Entity
 @Table(name = "groups", schema = "public", catalog = "ortofit")
 public class Group implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "roles")
     private String roles;
+    @ManyToMany(mappedBy = "groups")
     private Set<User> users;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -27,8 +30,6 @@ public class Group implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -37,8 +38,6 @@ public class Group implements Serializable {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "roles")
     public String getRoles() {
         return roles;
     }
@@ -47,7 +46,6 @@ public class Group implements Serializable {
         this.roles = roles;
     }
 
-    @ManyToMany(mappedBy = "groups")
     public Set<User> getUsers() {
         return users;
     }

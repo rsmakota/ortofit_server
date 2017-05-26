@@ -12,15 +12,24 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "app_reminders", schema = "public", catalog = "ortofit")
 public class AppReminder implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "appointment_id")
     private Appointment appointment;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
     private Person person;
+    @Column(name = "date_time")
     private Timestamp dateTime;
+    @Column(name = "description")
     private String description;
+    @Column(name = "processed")
     private Boolean processed;
 
-    @Id
-    @Column(name = "id")
+
     public Integer getId() {
         return id;
     }
@@ -29,18 +38,14 @@ public class AppReminder implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "appointment_id")
     public Appointment getAppointment() {
         return appointment;
     }
 
-    public void setAppointment(Appointment appointmentId) {
-        this.appointment = appointmentId;
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "person_id")
     public Person getPerson() {
         return person;
     }
@@ -49,8 +54,6 @@ public class AppReminder implements Serializable {
         this.person = person;
     }
 
-    @Basic
-    @Column(name = "date_time")
     public Timestamp getDateTime() {
         return dateTime;
     }
@@ -59,8 +62,6 @@ public class AppReminder implements Serializable {
         this.dateTime = dateTime;
     }
 
-    @Basic
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -69,8 +70,6 @@ public class AppReminder implements Serializable {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "processed")
     public Boolean getProcessed() {
         return processed;
     }
@@ -79,32 +78,32 @@ public class AppReminder implements Serializable {
         this.processed = processed;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AppReminder that = (AppReminder) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (appointment != null ? !appointment.equals(that.appointment) : that.appointment != null)
-            return false;
-        if (person != null ? !person.equals(that.person) : that.person != null) return false;
-        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (processed != null ? !processed.equals(that.processed) : that.processed != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (appointment != null ? appointment.hashCode() : 0);
-        result = 31 * result + (person != null ? person.hashCode() : 0);
-        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (processed != null ? processed.hashCode() : 0);
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        AppReminder that = (AppReminder) o;
+//
+//        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+//        if (appointment != null ? !appointment.equals(that.appointment) : that.appointment != null)
+//            return false;
+//        if (person != null ? !person.equals(that.person) : that.person != null) return false;
+//        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
+//        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+//        if (processed != null ? !processed.equals(that.processed) : that.processed != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = id != null ? id.hashCode() : 0;
+//        result = 31 * result + (appointment != null ? appointment.hashCode() : 0);
+//        result = 31 * result + (person != null ? person.hashCode() : 0);
+//        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
+//        result = 31 * result + (description != null ? description.hashCode() : 0);
+//        result = 31 * result + (processed != null ? processed.hashCode() : 0);
+//        return result;
+//    }
 }

@@ -11,13 +11,16 @@ import java.io.Serializable;
 @Entity
 @Table(name = "services", schema = "public", catalog = "ortofit")
 public class Service implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "color")
     private String color;
+    @Column(name = "short")
     private String shortName;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -26,8 +29,6 @@ public class Service implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -36,8 +37,6 @@ public class Service implements Serializable {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "color")
     public String getColor() {
         return color;
     }
@@ -46,14 +45,12 @@ public class Service implements Serializable {
         this.color = color;
     }
 
-    @Basic
-    @Column(name = "short")
     public String getShortName() {
         return shortName;
     }
 
-    public void setShortName(String shorts) {
-        this.shortName = shorts;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     @Override

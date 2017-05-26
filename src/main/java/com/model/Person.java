@@ -12,17 +12,26 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "persons", schema = "public", catalog = "ortofit")
 public class Person implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "family_status_id")
     private FamilyStatus familyStatus;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+    @Column(name = "name")
     private String name;
+    @Column(name = "born")
     private Timestamp born;
+    @Column(name = "created")
     private Timestamp created;
+    @Column(name = "is_client")
     private Boolean isClient;
+    @Column(name = "gender")
     private String gender;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -31,8 +40,6 @@ public class Person implements Serializable{
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "family_status_id")
     public FamilyStatus getFamilyStatus() {
         return familyStatus;
     }
@@ -41,18 +48,26 @@ public class Person implements Serializable{
         this.familyStatus = familyStatus;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
     public Client getClient() {
         return client;
+    }
+
+    public void setClient(Boolean client) {
+        isClient = client;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public void setClient(Client client) {
         this.client = client;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -61,8 +76,6 @@ public class Person implements Serializable{
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "born")
     public Timestamp getBorn() {
         return born;
     }
@@ -71,25 +84,12 @@ public class Person implements Serializable{
         this.born = born;
     }
 
-    @Basic
-    @Column(name = "created")
     public Timestamp getCreated() {
         return created;
     }
 
     public void setCreated(Timestamp created) {
         this.created = created;
-    }
-
-
-    @Basic
-    @Column(name = "gender")
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     @Override

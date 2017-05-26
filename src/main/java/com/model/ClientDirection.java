@@ -11,12 +11,14 @@ import java.io.Serializable;
 @Entity
 @Table(name = "client_directions", schema = "public", catalog = "ortofit")
 public class ClientDirection implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "alias")
     private String alias;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -25,8 +27,6 @@ public class ClientDirection implements Serializable {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -35,8 +35,6 @@ public class ClientDirection implements Serializable {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "alias")
     public String getAlias() {
         return alias;
     }

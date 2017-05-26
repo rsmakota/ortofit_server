@@ -11,12 +11,15 @@ import java.io.Serializable;
 @Entity
 @Table(name = "cities", schema = "public", catalog = "ortofit")
 public class City implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
     private Country country;
+    @Column(name = "name")
     private String name;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -25,8 +28,6 @@ public class City implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "country_id")
     public Country getCountry() {
         return country;
     }
@@ -35,8 +36,6 @@ public class City implements Serializable {
         this.country = country;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }

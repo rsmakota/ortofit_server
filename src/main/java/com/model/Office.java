@@ -1,6 +1,7 @@
 package com.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -9,13 +10,16 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "offices", schema = "public", catalog = "ortofit")
-public class Office {
+public class Office implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
+    @Column(name = "name")
     private String name;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -24,8 +28,6 @@ public class Office {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "city_id")
     public City getCity() {
         return city;
     }
@@ -34,8 +36,6 @@ public class Office {
         this.city = city;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }

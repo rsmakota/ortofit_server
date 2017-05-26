@@ -6,19 +6,20 @@ import java.io.Serializable;
 @Entity
 @Table(name = "countries", schema = "public", catalog = "ortofit")
 public class Country implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "prefix", length = 4, nullable = false)
     private String prefix;
+    @Column(name = "pattern", nullable = false)
     private String pattern;
+    @Column(name = "iso2", length = 2)
     private String iso2;
+    @Column(name = "length")
     private Integer length;
 
-    public void setLength(Integer length) {
-        this.length = length;
-    }
-
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -27,8 +28,6 @@ public class Country implements Serializable{
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -37,8 +36,6 @@ public class Country implements Serializable{
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "prefix", length = 4, nullable = false)
     public String getPrefix() {
         return prefix;
     }
@@ -47,8 +44,6 @@ public class Country implements Serializable{
         this.prefix = prefix;
     }
 
-    @Basic
-    @Column(name = "pattern", nullable = false)
     public String getPattern() {
         return pattern;
     }
@@ -57,8 +52,6 @@ public class Country implements Serializable{
         this.pattern = pattern;
     }
 
-    @Basic
-    @Column(name = "iso2", length = 2)
     public String getIso2() {
         return iso2;
     }
@@ -67,10 +60,12 @@ public class Country implements Serializable{
         this.iso2 = iso2;
     }
 
-    @Basic
-    @Column(name = "length")
     public Integer getLength() {
         return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
     }
 
     @Override

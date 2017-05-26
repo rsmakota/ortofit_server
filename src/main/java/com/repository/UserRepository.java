@@ -1,11 +1,11 @@
 package com.repository;
 
 import com.model.User;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 
-@RepositoryRestResource(collectionResourceRel = "user", path = "user")
-public interface UserRepository extends CrudRepository<User, Integer> {
-//    List<Country> findByLastName(@Param("name") String name);
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
+    User findByUsername(String username);
 }

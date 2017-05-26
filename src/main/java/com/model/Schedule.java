@@ -12,14 +12,20 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "schedule", schema = "public", catalog = "ortofit")
 public class Schedule implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "office_id")
     private Office office;
+    @Column(name = "start_date")
     private Timestamp startDate;
+    @Column(name = "end_date")
     private Timestamp endDate;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -28,8 +34,6 @@ public class Schedule implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
@@ -38,8 +42,6 @@ public class Schedule implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "office_id")
     public Office getOffice() {
         return office;
     }
@@ -48,8 +50,6 @@ public class Schedule implements Serializable {
         this.office = office;
     }
 
-    @Basic
-    @Column(name = "start_date")
     public Timestamp getStartDate() {
         return startDate;
     }
@@ -58,8 +58,6 @@ public class Schedule implements Serializable {
         this.startDate = startDate;
     }
 
-    @Basic
-    @Column(name = "end_date")
     public Timestamp getEndDate() {
         return endDate;
     }

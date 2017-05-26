@@ -12,15 +12,24 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "person_services", schema = "public", catalog = "ortofit")
 public class PersonService implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
     private Person person;
+    @ManyToOne
+    @JoinColumn(name = "appointment_id")
     private Appointment appointment;
+    @ManyToOne
+    @JoinColumn(name = "service_id")
     private Service service;
+    @Column(name = "date")
     private Timestamp date;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -29,8 +38,6 @@ public class PersonService implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
     public Client getClient() {
         return client;
     }
@@ -39,8 +46,6 @@ public class PersonService implements Serializable {
         this.client = client;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "person_id")
     public Person getPerson() {
         return person;
     }
@@ -49,8 +54,6 @@ public class PersonService implements Serializable {
         this.person = person;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "appointment_id")
     public Appointment getAppointment() {
         return appointment;
     }
@@ -59,8 +62,6 @@ public class PersonService implements Serializable {
         this.appointment = appointment;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "service_id")
     public Service getService() {
         return service;
     }
@@ -69,8 +70,6 @@ public class PersonService implements Serializable {
         this.service = service;
     }
 
-    @Basic
-    @Column(name = "date")
     public Timestamp getDate() {
         return date;
     }

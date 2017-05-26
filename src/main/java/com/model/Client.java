@@ -12,16 +12,24 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "clients", schema = "public", catalog = "ortofit")
 public class Client implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
     private Country country;
+    @Column(name = "msisdn")
     private String msisdn;
+    @Column(name = "created")
     private Timestamp created;
+    @ManyToOne
+    @JoinColumn(name = "client_direction_id")
     private ClientDirection clientDirection;
+    @Column(name = "name")
     private String name;
+    @Column(name = "gender")
     private String gender;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -30,8 +38,6 @@ public class Client implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "country_id")
     public Country getCountry() {
         return country;
     }
@@ -40,8 +46,6 @@ public class Client implements Serializable {
         this.country = country;
     }
 
-    @Basic
-    @Column(name = "msisdn")
     public String getMsisdn() {
         return msisdn;
     }
@@ -50,8 +54,6 @@ public class Client implements Serializable {
         this.msisdn = msisdn;
     }
 
-    @Basic
-    @Column(name = "created")
     public Timestamp getCreated() {
         return created;
     }
@@ -60,8 +62,6 @@ public class Client implements Serializable {
         this.created = created;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "client_direction_id")
     public ClientDirection getClientDirection() {
         return clientDirection;
     }
@@ -70,8 +70,6 @@ public class Client implements Serializable {
         this.clientDirection = clientDirection;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -80,8 +78,6 @@ public class Client implements Serializable {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "gender")
     public String getGender() {
         return gender;
     }

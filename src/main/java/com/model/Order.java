@@ -12,15 +12,23 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "orders", schema = "public", catalog = "ortofit")
 public class Order implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+    @ManyToOne
+    @JoinColumn(name = "application_id")
     private Application application;
+    @ManyToOne
+    @JoinColumn(name = "service_id")
     private Service service;
+    @Column(name = "created")
     private Timestamp created;
+    @Column(name = "processed")
     private Boolean processed;
 
-    @Id
-    @Column(name = "id")
     public Integer getId() {
         return id;
     }
@@ -29,8 +37,6 @@ public class Order implements Serializable{
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
     public Client getClient() {
         return client;
     }
@@ -39,8 +45,6 @@ public class Order implements Serializable{
         this.client = client;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "application_id")
     public Application getApplication() {
         return application;
     }
@@ -49,8 +53,6 @@ public class Order implements Serializable{
         this.application = application;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "service_id")
     public Service getService() {
         return service;
     }
@@ -59,8 +61,6 @@ public class Order implements Serializable{
         this.service = service;
     }
 
-    @Basic
-    @Column(name = "created")
     public Timestamp getCreated() {
         return created;
     }
@@ -69,8 +69,6 @@ public class Order implements Serializable{
         this.created = created;
     }
 
-    @Basic
-    @Column(name = "processed")
     public Boolean getProcessed() {
         return processed;
     }
