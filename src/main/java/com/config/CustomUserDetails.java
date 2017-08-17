@@ -1,7 +1,7 @@
 package com.config;
 
-import com.model.Role;
-import com.model.User;
+import com.dao.model.Role;
+import com.dao.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

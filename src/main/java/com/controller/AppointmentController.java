@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.model.Appointment;
-import com.service.AppointmentService;
+import com.dao.model.Appointment;
+import com.dao.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +28,4 @@ public class AppointmentController {
         service.create(appointment);
 
     }
-
 }
