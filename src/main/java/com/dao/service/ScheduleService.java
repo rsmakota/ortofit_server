@@ -1,6 +1,7 @@
 package com.dao.service;
 
 import com.dao.model.Appointment;
+import com.dao.model.CalendarBackgroudEvent;
 import com.dao.model.CalendarEvent;
 import com.dao.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,13 @@ public class ScheduleService implements IScheduleService {
     private ScheduleRepository repository;
 
     @Override
-    public List<CalendarEvent> find(Timestamp from, Timestamp to, Integer officeId, Integer personId) {
-        return repository.find(from, to, officeId, personId);
+    public List<CalendarEvent> findEvents(Timestamp from, Timestamp to, Integer officeId, Integer doctorId) {
+        return repository.find(from, to, officeId, doctorId);
+    }
+
+    @Override
+    public List<CalendarBackgroudEvent> findBackgroundEvents(Timestamp from, Timestamp to, Integer officeId, Integer doctorId) {
+        return repository.findBackground(from, to, officeId, doctorId);
     }
 
 }

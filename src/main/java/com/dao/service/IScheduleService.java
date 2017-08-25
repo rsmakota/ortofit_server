@@ -1,5 +1,6 @@
 package com.dao.service;
 
+import com.dao.model.CalendarBackgroudEvent;
 import com.dao.model.CalendarEvent;
 
 import java.sql.Timestamp;
@@ -11,5 +12,6 @@ import java.util.List;
  * Copyright  "Commercegate LTD"
  */
 public interface IScheduleService {
-    public List<CalendarEvent> find(Timestamp from, Timestamp to, Integer officeId, Integer personId);
+    public List<CalendarEvent> findEvents(Timestamp from, Timestamp to, Integer officeId, Integer doctorId);
+    public List<CalendarBackgroudEvent> findBackgroundEvents(Timestamp from, Timestamp to, Integer officeId, Integer doctorId);
 }

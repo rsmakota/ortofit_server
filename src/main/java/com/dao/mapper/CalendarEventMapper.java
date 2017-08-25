@@ -20,10 +20,10 @@ public class CalendarEventMapper implements RowMapper<CalendarEvent> {
         String reason      = resultSet.getString("reason");
 
         CalendarEvent event = new CalendarEvent();
-        event.setId(resultSet.getInt("id"));
+        event.setId(resultSet.getString("id"));
         event.setTitle(resultSet.getString("title"));
-        event.setStart(resultSet.getTimestamp("start"));
-        event.setEnd(resultSet.getTimestamp("end"));
+        event.setStart(resultSet.getString("start"));
+        event.setEnd(resultSet.getString("end"));
         event.setBackgroundColor(resultSet.getString("backgroundColor"));
         event.setBorderColor(resultSet.getString("borderColor"));
         event.setTextColor("#000000");

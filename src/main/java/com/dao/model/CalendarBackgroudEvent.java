@@ -5,30 +5,21 @@ import java.sql.Timestamp;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
- * @since 2017-08-11
+ * @since 2017-08-25
  * Copyright  "Commercegate LTD"
  */
-public class CalendarEvent implements Serializable, ICalendarEvent {
-
-    final public static int STATE_NEW          = 1;
-    final public static int STATE_RECORD       = 2;
-    final public static int STATE_CLOSE_REASON = 3;
-    final public static int STATE_SUCCESS      = 4;
-
+public class CalendarBackgroudEvent implements Serializable, ICalendarEvent {
     private String id;
     private String title;
+    private String backgroundColor;
+    private String rendering;
     private String start;
     private String end;
-    private String backgroundColor;
-    private String borderColor;
-    private String textColor;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public CalendarBackgroudEvent() {
+        this.id = "available_hours";
+        this.rendering = "inverse-background";
+        this.backgroundColor = "#cccccc";
     }
 
     public String getTitle() {
@@ -42,28 +33,19 @@ public class CalendarEvent implements Serializable, ICalendarEvent {
     public String getBackgroundColor() {
         return backgroundColor;
     }
+    public String getColor() {
+        return backgroundColor;
+    }
 
     public void setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
-    public String getBorderColor() {
-        return borderColor;
-    }
-
-    public void setBorderColor(String borderColor) {
-        this.borderColor = borderColor;
-    }
-
-    public String getTextColor() {
-        return textColor;
-    }
-
-    public void setTextColor(String textColor) {
-        this.textColor = textColor;
-    }
-
     @Override
+    public String getId() {
+        return id;
+    }
+
     public String getStart() {
         return start;
     }
@@ -72,12 +54,15 @@ public class CalendarEvent implements Serializable, ICalendarEvent {
         this.start = start;
     }
 
-    @Override
     public String getEnd() {
         return end;
     }
 
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    public String getRendering() {
+        return rendering;
     }
 }
