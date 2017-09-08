@@ -49,7 +49,7 @@ public class ScheduleRepository {
     public List<CalendarBackgroudEvent> findBackground(Timestamp from, Timestamp to, Integer officeId, Integer doctorId) {
         String whereUser = "" ;
         if (null != doctorId) {
-            whereUser = "  a.user_id = " + doctorId.toString() + " AND ";
+            whereUser = "  s.user_id = " + doctorId.toString() + " AND ";
         }
 
         String sql = "SELECT s.start_date as start, s.end_date as \"end\" " +

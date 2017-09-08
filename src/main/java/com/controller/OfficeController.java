@@ -21,13 +21,13 @@ public class OfficeController {
     @Autowired
     private IOfficeService officeService;
 
-    @GetMapping(value = "/{id}")
-    public Office get(@PathVariable(value = "id") Integer id) {
+//    @GetMapping(value = "/{id}")
+//    public Office get(@PathVariable(value = "id") Integer id) {
+//
+//        return officeService.find(id);
+//    }
 
-        return officeService.find(id);
-    }
-
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/")
     public List<Office> getAll() {
         return officeService.findAll();
     }

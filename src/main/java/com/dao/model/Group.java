@@ -22,6 +22,7 @@ public class Group implements Serializable {
     private String roles;
 
     @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
+    @OrderBy(value="name asc")
     private Set<User> users;
 
     public Integer getId() {
