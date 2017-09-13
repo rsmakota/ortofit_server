@@ -1,5 +1,7 @@
 package com.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,6 +22,10 @@ public class Service implements Serializable {
     private String color;
     @Column(name = "short")
     private String shortName;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "service_group_id")
+    private ServiceGroup serviceGroup;
 
     public Integer getId() {
         return id;
@@ -51,6 +57,14 @@ public class Service implements Serializable {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public ServiceGroup getServiceGroup() {
+        return serviceGroup;
+    }
+
+    public void setServiceGroup(ServiceGroup serviceGroup) {
+        this.serviceGroup = serviceGroup;
     }
 
     @Override
