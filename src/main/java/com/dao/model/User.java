@@ -90,7 +90,7 @@ public class User implements Serializable {
     @Column(name = "roles")
     private String rolesStr = "";
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
