@@ -1,8 +1,10 @@
 package com.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -13,15 +15,17 @@ import java.sql.Timestamp;
 @Table(name = "clients", schema = "public", catalog = "ortofit")
 public class Client implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "idClientGen")
+    @SequenceGenerator(name = "idClientGen", schema = "public", sequenceName = "clients_id_seq", allocationSize = 1)
     private Integer id;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
     @Column(name = "msisdn")
     private String msisdn;
     @Column(name = "created")
-    private Timestamp created;
+    private Date created;
     @ManyToOne
     @JoinColumn(name = "client_direction_id")
     private ClientDirection clientDirection;
@@ -29,6 +33,10 @@ public class Client implements Serializable {
     private String name;
     @Column(name = "gender")
     private String gender;
+
+    public Client() {
+        this.created = new Date();
+    }
 
     public Integer getId() {
         return id;
@@ -54,11 +62,11 @@ public class Client implements Serializable {
         this.msisdn = msisdn;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

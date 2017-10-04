@@ -2,6 +2,7 @@ package com.controller;
 
 import com.dao.model.Appointment;
 import com.dao.service.AppointmentService;
+import com.dao.type.AppointmentState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +24,9 @@ public class AppointmentController {
     }
 
     @PostMapping("/")
-    public void postAppointment(@RequestBody Appointment appointment) {
-
+    public Integer postAppointment(@RequestBody Appointment appointment) {
+        appointment.setState(AppointmentState.New.ordinal());
         service.create(appointment);
-
+        return appointment.getId();
     }
 }

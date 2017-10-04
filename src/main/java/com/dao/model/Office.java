@@ -16,7 +16,6 @@ public class Office implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;

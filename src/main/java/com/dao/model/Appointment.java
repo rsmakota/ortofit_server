@@ -3,6 +3,7 @@ package com.dao.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -12,27 +13,19 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "appointments", schema = "public", catalog = "ortofit")
 public class Appointment implements Serializable {
+
     @Id
     @GeneratedValue(generator = "idAppointmentGen")
     @SequenceGenerator(name = "idAppointmentGen", schema = "public", sequenceName = "appointments_id_seq", allocationSize = 1)
     private Integer id;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "client_id")
-//    private Client client;
     @Column(name = "client_id")
     private Integer clientId;
     @Column(name = "created")
-    private Timestamp created;
+    private Date created;
     @Column(name = "description")
     private String description;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "office_id")
-//    private Office office;
     @Column(name = "office_id")
     private Integer officeId;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "service_id")
-//    private Service service;
     @Column(name = "service_id")
     private Integer serviceId;
     @Column(name = "date_time")
@@ -41,17 +34,12 @@ public class Appointment implements Serializable {
     private Integer state;
     @Column(name = "duration")
     private Integer duration;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
     @Column(name = "user_id")
     private Integer userId;
     @Column(name = "forwarder")
     private String forwarder;
-
     @Column(name = "bold")
     private Boolean bold = false;
-
     @Column(name = "flyer")
     private Boolean flyer = false;
     @Column(name = "phone_confirm")
@@ -60,7 +48,7 @@ public class Appointment implements Serializable {
 
 
     public Appointment() {
-        created = new Timestamp(System.currentTimeMillis());
+        created = new Date();
     }
 
     public Integer getId() {
@@ -72,11 +60,11 @@ public class Appointment implements Serializable {
     }
 
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

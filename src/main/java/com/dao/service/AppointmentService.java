@@ -23,7 +23,7 @@ public class AppointmentService implements IAppointmentService {
         return repository.findOne(id);
     }
 
-    public void create(Appointment appointment) {
-        repository.save(appointment);
+    public Appointment create(Appointment appointment) {
+        return repository.save(appointment);
     }
 }

@@ -20,4 +20,8 @@ public class ClientService {
     {
         return repository.findByMsisdn(msisdn);
     }
+
+    public Client save(Client client) {
+        return repository.save(client);
+    }
 }
