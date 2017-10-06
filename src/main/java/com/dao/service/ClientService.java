@@ -24,4 +24,8 @@ public class ClientService {
     public Client save(Client client) {
         return repository.save(client);
     }
+
+    public Client findById(Integer id) {
+        return repository.findOne(id);
+    }
 }

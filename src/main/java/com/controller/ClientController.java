@@ -22,11 +22,19 @@ public class ClientController {
 
     @Autowired
     private CountryRepository countryRepository;
-    @GetMapping(value = "/{msisdn}")
+    @GetMapping(value = "/msisdn/{msisdn}")
     public Client getClient(@PathVariable(value = "msisdn") String msisdn) {
 
         return service.findByMsisdn(msisdn);
     }
+
+    @GetMapping(value = "/id/{id}")
+    public Client getClient(@PathVariable(value = "id") Integer id) {
+
+        return service.findById(id);
+    }
+
+
 
     @PostMapping(value = "/")
     public Client postClient(@RequestBody ClientWrapper wrapper)

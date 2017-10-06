@@ -16,9 +16,8 @@ public class AppReminder implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "appointment_id")
-    private Appointment appointment;
+    @Column(name = "appointment_id")
+    private Integer appointmentId;
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
@@ -38,12 +37,12 @@ public class AppReminder implements Serializable {
         this.id = id;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
+    public Integer getAppointmentId() {
+        return appointmentId;
     }
 
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public Person getPerson() {

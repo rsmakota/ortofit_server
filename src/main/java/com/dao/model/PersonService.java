@@ -21,14 +21,15 @@ public class PersonService implements Serializable {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
-    @ManyToOne
-    @JoinColumn(name = "appointment_id")
-    private Appointment appointment;
+    @Column(name = "appointment_id")
+    private Integer appointmentId;
     @ManyToOne
     @JoinColumn(name = "service_id")
     private Service service;
     @Column(name = "date")
     private Timestamp date;
+    @Column
+    private Integer number;
 
     public Integer getId() {
         return id;
@@ -54,12 +55,20 @@ public class PersonService implements Serializable {
         this.person = person;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
+    public Integer getAppointmentId() {
+        return appointmentId;
     }
 
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public Service getService() {
@@ -78,32 +87,32 @@ public class PersonService implements Serializable {
         this.date = date;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        PersonService that = (PersonService) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (client != null ? !client.equals(that.client) : that.client != null) return false;
-        if (person != null ? !person.equals(that.person) : that.person != null) return false;
-        if (appointment != null ? !appointment.equals(that.appointment) : that.appointment != null)
-            return false;
-        if (service != null ? !service.equals(that.service) : that.service != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (client != null ? client.hashCode() : 0);
-        result = 31 * result + (person != null ? person.hashCode() : 0);
-        result = 31 * result + (appointment != null ? appointment.hashCode() : 0);
-        result = 31 * result + (service != null ? service.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        PersonService that = (PersonService) o;
+//
+//        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+//        if (client != null ? !client.equals(that.client) : that.client != null) return false;
+//        if (person != null ? !person.equals(that.person) : that.person != null) return false;
+//        if (appointment != null ? !appointment.equals(that.appointment) : that.appointment != null)
+//            return false;
+//        if (service != null ? !service.equals(that.service) : that.service != null) return false;
+//        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = id != null ? id.hashCode() : 0;
+//        result = 31 * result + (client != null ? client.hashCode() : 0);
+//        result = 31 * result + (person != null ? person.hashCode() : 0);
+//        result = 31 * result + (appointment != null ? appointment.hashCode() : 0);
+//        result = 31 * result + (service != null ? service.hashCode() : 0);
+//        result = 31 * result + (date != null ? date.hashCode() : 0);
+//        return result;
+//    }
 }

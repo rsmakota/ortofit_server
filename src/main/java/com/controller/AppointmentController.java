@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dao.model.Appointment;
+import com.dao.model.FullAppointmentData;
 import com.dao.service.AppointmentService;
 import com.dao.type.AppointmentState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,10 @@ public class AppointmentController {
     @Autowired
     private AppointmentService service;
 
-    @GetMapping(value = "/")
-    public Appointment getAppointment(@RequestParam(value = "id") Integer id) {
-        return service.find(id);
+    @GetMapping(value = "/{id}")
+    public FullAppointmentData getAppointment(@PathVariable(value = "id") Integer id) {
+
+        return service.findFull(id);
     }
 
     @PostMapping("/")
