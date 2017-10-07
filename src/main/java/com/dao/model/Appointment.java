@@ -1,5 +1,7 @@
 package com.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -28,6 +30,7 @@ public class Appointment implements Serializable {
     private Integer officeId;
     @Column(name = "service_id")
     private Integer serviceId;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Kiev")
     @Column(name = "date_time")
     private Timestamp dateTime;
     @Column(name = "state")

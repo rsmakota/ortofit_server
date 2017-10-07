@@ -1,8 +1,6 @@
 package com;
 
 import com.config.CustomUserDetails;
-import com.dao.model.Role;
-import com.dao.model.User;
 import com.dao.repository.UserRepository;
 import com.dao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class Application {
