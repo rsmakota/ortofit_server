@@ -18,17 +18,14 @@ public class Client implements Serializable {
     @GeneratedValue(generator = "idClientGen")
     @SequenceGenerator(name = "idClientGen", schema = "public", sequenceName = "clients_id_seq", allocationSize = 1)
     private Integer id;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private Country country;
+    @Column(name = "country_id")
+    private Integer countryId;
     @Column(name = "msisdn")
     private String msisdn;
     @Column(name = "created")
     private Date created;
-    @ManyToOne
-    @JoinColumn(name = "client_direction_id")
-    private ClientDirection clientDirection;
+    @Column(name = "client_direction_id")
+    private Integer clientDirectionId;
     @Column(name = "name")
     private String name;
     @Column(name = "gender")
@@ -44,14 +41,6 @@ public class Client implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
     }
 
     public String getMsisdn() {
@@ -70,12 +59,12 @@ public class Client implements Serializable {
         this.created = created;
     }
 
-    public ClientDirection getClientDirection() {
-        return clientDirection;
+    public Integer getClientDirectionId() {
+        return clientDirectionId;
     }
 
-    public void setClientDirection(ClientDirection clientDirection) {
-        this.clientDirection = clientDirection;
+    public void setClientDirectionId(Integer clientDirectionId) {
+        this.clientDirectionId = clientDirectionId;
     }
 
     public String getName() {
@@ -94,34 +83,4 @@ public class Client implements Serializable {
         this.gender = gender;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Client clients = (Client) o;
-
-        if (id != null ? !id.equals(clients.id) : clients.id != null) return false;
-        if (country != null ? !country.equals(clients.country) : clients.country != null) return false;
-        if (msisdn != null ? !msisdn.equals(clients.msisdn) : clients.msisdn != null) return false;
-        if (created != null ? !created.equals(clients.created) : clients.created != null) return false;
-        if (clientDirection != null ? !clientDirection.equals(clients.clientDirection) : clients.clientDirection != null)
-            return false;
-        if (name != null ? !name.equals(clients.name) : clients.name != null) return false;
-        if (gender != null ? !gender.equals(clients.gender) : clients.gender != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (msisdn != null ? msisdn.hashCode() : 0);
-        result = 31 * result + (created != null ? created.hashCode() : 0);
-        result = 31 * result + (clientDirection != null ? clientDirection.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        return result;
-    }
 }

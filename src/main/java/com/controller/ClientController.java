@@ -37,15 +37,8 @@ public class ClientController {
 
 
     @PostMapping(value = "/")
-    public Client postClient(@RequestBody ClientWrapper wrapper)
+    public Client postClient(@RequestBody Client client)
     {
-        Country country = countryRepository.findById(wrapper.getCountryId());
-        Client client = new Client();
-        client.setCountry(country);
-        client.setMsisdn(wrapper.getMsisdn());
-        client.setGender(wrapper.getGender());
-        client.setName(wrapper.getName());
-
         return service.save(client);
     }
 
