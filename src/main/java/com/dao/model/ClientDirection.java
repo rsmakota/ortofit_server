@@ -18,7 +18,8 @@ public class ClientDirection implements Serializable {
     private String name;
     @Column(name = "alias")
     private String alias;
-
+    @Column(name = "order_num")
+    private Integer orderNum;
     public Integer getId() {
         return id;
     }
@@ -43,25 +44,32 @@ public class ClientDirection implements Serializable {
         this.alias = alias;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ClientDirection that = (ClientDirection) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (alias != null ? !alias.equals(that.alias) : that.alias != null) return false;
-
-        return true;
+    public Integer getOrderNum() {
+        return orderNum;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (alias != null ? alias.hashCode() : 0);
-        return result;
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
     }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        ClientDirection that = (ClientDirection) o;
+//
+//        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+//        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+//        if (alias != null ? !alias.equals(that.alias) : that.alias != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = id != null ? id.hashCode() : 0;
+//        result = 31 * result + (name != null ? name.hashCode() : 0);
+//        result = 31 * result + (alias != null ? alias.hashCode() : 0);
+//        return result;
+//    }
 }
