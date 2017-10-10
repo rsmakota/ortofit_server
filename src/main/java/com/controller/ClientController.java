@@ -22,6 +22,7 @@ public class ClientController {
 
     @Autowired
     private CountryRepository countryRepository;
+
     @GetMapping(value = "/msisdn/{msisdn}")
     public Client getClient(@PathVariable(value = "msisdn") String msisdn) {
 
@@ -34,12 +35,17 @@ public class ClientController {
         return service.findById(id);
     }
 
-
-
     @PostMapping(value = "/")
     public Client postClient(@RequestBody Client client)
     {
         return service.save(client);
     }
+
+    @PutMapping(value = "/")
+    public Client putClient(@RequestBody Client client)
+    {
+        return service.save(client);
+    }
+
 
 }

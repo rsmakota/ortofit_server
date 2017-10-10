@@ -83,4 +83,11 @@ public class Client implements Serializable {
         this.gender = gender;
     }
 
+    public Integer getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
+    }
 }
