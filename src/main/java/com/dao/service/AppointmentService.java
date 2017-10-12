@@ -44,4 +44,8 @@ public class AppointmentService implements IAppointmentService {
     public Appointment create(Appointment appointment) {
         return repository.save(appointment);
     }
+
+    public Appointment update(Appointment appointment) {
+        return repository.save(appointment);
+    }
 }

@@ -31,4 +31,10 @@ public class AppointmentController {
         service.create(appointment);
         return appointment.getId();
     }
+
+    @PutMapping("/")
+    public Integer putAppointment(@RequestBody Appointment appointment) {
+        service.update(appointment);
+        return appointment.getId();
+    }
 }
