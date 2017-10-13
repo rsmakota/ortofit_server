@@ -1,10 +1,13 @@
 package com.controller;
 
 import com.dao.model.AppointmentReason;
+import com.dao.model.User;
 import com.dao.repository.AppointmentReasonRepository;
+import com.dao.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -18,7 +21,8 @@ public class AppointmentReasonController {
 
     @Autowired
     private AppointmentReasonRepository repository;
-
+    @Autowired
+    private UserRepository userRepository;
     @GetMapping(value = "/id/{id}")
     public AppointmentReason getReason(@PathVariable(value = "id") Integer id) {
         return repository.findOne(id);
@@ -30,8 +34,11 @@ public class AppointmentReasonController {
     }
 
     @PostMapping("/")
-    public Integer postAppointment(@RequestBody AppointmentReason reason) {
+    public Integer postAppointment(Principal principal, @RequestBody AppointmentReason reason) {
+        User user = userRepository.findByUsername(principal.getName());
+        reason.setUserId(user.getId());
         repository.save(reason);
+
         return reason.getId();
     }
 
