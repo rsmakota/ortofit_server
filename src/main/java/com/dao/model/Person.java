@@ -18,9 +18,8 @@ public class Person implements Serializable{
     @ManyToOne
     @JoinColumn(name = "family_status_id")
     private FamilyStatus familyStatus;
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @Column(name = "client_id")
+    private Integer clientId;
     @Column(name = "name")
     private String name;
     @Column(name = "born")
@@ -48,8 +47,16 @@ public class Person implements Serializable{
         this.familyStatus = familyStatus;
     }
 
-    public Client getClient() {
-        return client;
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
+
+    public Boolean getClient() {
+        return isClient;
     }
 
     public void setClient(Boolean client) {
@@ -62,10 +69,6 @@ public class Person implements Serializable{
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public String getName() {
@@ -92,36 +95,5 @@ public class Person implements Serializable{
         this.created = created;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Person person = (Person) o;
-
-        if (id != null ? !id.equals(person.id) : person.id != null) return false;
-        if (familyStatus != null ? !familyStatus.equals(person.familyStatus) : person.familyStatus != null)
-            return false;
-        if (client != null ? !client.equals(person.client) : person.client != null) return false;
-        if (name != null ? !name.equals(person.name) : person.name != null) return false;
-        if (born != null ? !born.equals(person.born) : person.born != null) return false;
-        if (created != null ? !created.equals(person.created) : person.created != null) return false;
-        if (isClient != null ? !isClient.equals(person.isClient) : person.isClient != null) return false;
-        if (gender != null ? !gender.equals(person.gender) : person.gender != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (familyStatus != null ? familyStatus.hashCode() : 0);
-        result = 31 * result + (client != null ? client.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (born != null ? born.hashCode() : 0);
-        result = 31 * result + (created != null ? created.hashCode() : 0);
-        result = 31 * result + (isClient != null ? isClient.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        return result;
-    }
 }

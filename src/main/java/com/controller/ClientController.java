@@ -44,6 +44,9 @@ public class ClientController {
     @PutMapping(value = "/")
     public Client putClient(@RequestBody Client client)
     {
+        if (client.getCountryId() == null) {
+            client.setCountryId(1);
+        }
         return service.save(client);
     }
 
