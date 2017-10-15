@@ -29,7 +29,7 @@ public class ScheduleRepository {
             whereUser = "  a.user_id = " + doctorId.toString() + " AND ";
         }
         String sql = "" +
-                "SELECT a.id, a.date_time AS start, a.date_time + (a.duration || 'minutes') :: INTERVAL AS \"end\"," +
+                "SELECT a.phone_confirm as phone, a.id, a.date_time AS start, a.date_time + (a.duration || 'minutes') :: INTERVAL AS \"end\"," +
                 "  s.short as title, s.color as backgroundColor, s.color as borderColor , a.bold, a.description, a.state, " +
                 "(SELECT r.name " +
                 "   FROM appointment_reasons ar " +

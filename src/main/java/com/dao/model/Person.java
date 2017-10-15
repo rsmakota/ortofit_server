@@ -95,5 +95,12 @@ public class Person implements Serializable{
         this.created = created;
     }
 
+    public Boolean getIsClient()
+    {
+        return isClient;
+    }
 
+    public void setIsClient(Boolean isClient) {
+        this.isClient = isClient;
+    }
 }

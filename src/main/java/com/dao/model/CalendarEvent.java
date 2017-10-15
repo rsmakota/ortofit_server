@@ -22,6 +22,7 @@ public class CalendarEvent implements Serializable, ICalendarEvent {
     private String backgroundColor;
     private String borderColor;
     private String textColor;
+    private Boolean phone;
 
     public String getId() {
         return id;
@@ -61,6 +62,14 @@ public class CalendarEvent implements Serializable, ICalendarEvent {
 
     public void setTextColor(String textColor) {
         this.textColor = textColor;
+    }
+
+    public Boolean getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Boolean phone) {
+        this.phone = phone;
     }
 
     @Override

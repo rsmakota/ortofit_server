@@ -27,7 +27,7 @@ public class CalendarEventMapper implements RowMapper<CalendarEvent> {
         event.setBackgroundColor(resultSet.getString("backgroundColor"));
         event.setBorderColor(resultSet.getString("borderColor"));
         event.setTextColor("#000000");
-
+        event.setPhone(resultSet.getBoolean("phone"));
         if (isBold) {
             fillBold(event, reason);
             return event;
