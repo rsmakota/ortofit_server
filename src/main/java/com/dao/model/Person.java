@@ -1,8 +1,11 @@
 package com.dao.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -13,7 +16,17 @@ import java.sql.Timestamp;
 @Table(name = "persons", schema = "public", catalog = "ortofit")
 public class Person implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "idPersonGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "persons_id_seq"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator = "idPersonGen")
+//    @SequenceGenerator(name = "idPersonGen", schema = "public", sequenceName = "persons_id_seq", allocationSize = 1)
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "family_status_id")
@@ -25,11 +38,15 @@ public class Person implements Serializable{
     @Column(name = "born")
     private Timestamp born;
     @Column(name = "created")
-    private Timestamp created;
+    private Date created;
     @Column(name = "is_client")
     private Boolean isClient;
     @Column(name = "gender")
     private String gender;
+
+    public Person() {
+        created = new Date();
+    }
 
     public Integer getId() {
         return id;
@@ -87,11 +104,11 @@ public class Person implements Serializable{
         this.born = born;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

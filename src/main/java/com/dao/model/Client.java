@@ -1,7 +1,7 @@
 package com.dao.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,8 +15,17 @@ import java.util.Date;
 @Table(name = "clients", schema = "public", catalog = "ortofit")
 public class Client implements Serializable {
     @Id
+    @GenericGenerator(
+            name = "idClientGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "clients_id_seq"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
     @GeneratedValue(generator = "idClientGen")
-    @SequenceGenerator(name = "idClientGen", schema = "public", sequenceName = "clients_id_seq", allocationSize = 1)
+//    @SequenceGenerator(name = "idClientGen", schema = "public", sequenceName = "clients_id_seq", allocationSize = 1)
     private Integer id;
     @Column(name = "country_id")
     private Integer countryId;

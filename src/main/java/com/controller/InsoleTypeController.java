@@ -1,10 +1,11 @@
 package com.controller;
 
+import com.dao.model.InsoleType;
 import com.dao.model.Office;
+import com.dao.repository.InsoleTypeRepository;
 import com.dao.service.IOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,14 +17,14 @@ import java.util.List;
  * Copyright  "Commercegate LTD"
  */
 @RestController
-@RequestMapping(value = "/api/office")
-public class OfficeController {
+@RequestMapping(value = "/api/insole_type")
+public class InsoleTypeController {
     @Autowired
-    private IOfficeService officeService;
+    private InsoleTypeRepository repository;
 
     @GetMapping(value = "/")
-    public List<Office> getAll() {
-        return officeService.findAll();
+    public List<InsoleType> getAll() {
+        return repository.findAll();
     }
 
 }

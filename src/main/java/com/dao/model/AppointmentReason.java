@@ -1,5 +1,7 @@
 package com.dao.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,8 +15,17 @@ import java.util.Date;
 @Table(name = "appointment_reasons", schema = "public", catalog = "ortofit")
 public class AppointmentReason implements Serializable {
     @Id
+    @GenericGenerator(
+            name = "idAppReasonGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "appointment_reasons_id_seq"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
     @GeneratedValue(generator = "idAppReasonGen")
-    @SequenceGenerator(name = "idAppReasonGen", schema = "public", sequenceName = "appointment_reasons_id_seq", allocationSize = 1)
+//    @SequenceGenerator(name = "idAppReasonGen", schema = "public", sequenceName = "appointment_reasons_id_seq", allocationSize = 1)
     private Integer id;
     @Column(name = "appointment_id")
     private Integer appointmentId;

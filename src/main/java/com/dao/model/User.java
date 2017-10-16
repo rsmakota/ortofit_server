@@ -1,7 +1,8 @@
 package com.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -19,8 +20,16 @@ import java.util.Set;
 public class User implements Serializable {
 
     @Id
+    @GenericGenerator(
+            name = "idUserGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "users_id_seq"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
     @GeneratedValue(generator = "idUserGen")
-    @SequenceGenerator(name = "idUserGen", schema = "public", sequenceName = "users_id_seq", allocationSize = 1)
     private Integer id;
 
     @JsonIgnore

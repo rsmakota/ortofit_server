@@ -1,6 +1,7 @@
 package com.dao.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,8 +18,17 @@ import java.util.Date;
 public class Appointment implements Serializable {
 
     @Id
+    @GenericGenerator(
+            name = "idAppointmentGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "appointments_id_seq"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
     @GeneratedValue(generator = "idAppointmentGen")
-    @SequenceGenerator(name = "idAppointmentGen", schema = "public", sequenceName = "appointments_id_seq", allocationSize = 1)
+//    @SequenceGenerator(name = "idAppointmentGen", schema = "public", sequenceName = "appointments_id_seq", allocationSize = 1)
     private Integer id;
     @Column(name = "client_id")
     private Integer clientId;

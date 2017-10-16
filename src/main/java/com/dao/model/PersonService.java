@@ -1,8 +1,10 @@
 package com.dao.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -13,23 +15,34 @@ import java.sql.Timestamp;
 @Table(name = "person_services", schema = "public", catalog = "ortofit")
 public class PersonService implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "idPersonServiceGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "person_services_id_seq"),
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator = "idPersonServiceGen")
+//    @SequenceGenerator(name = "idPersonServiceGen", schema = "public", sequenceName = "person_services_id_seq", allocationSize = 1)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-    @ManyToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @Column(name = "client_id")
+    private Integer clientId;
+    @Column(name = "person_id")
+    private Integer personId;
     @Column(name = "appointment_id")
     private Integer appointmentId;
-    @ManyToOne
-    @JoinColumn(name = "service_id")
-    private Service service;
+    @Column(name = "service_id")
+    private Integer serviceId;
     @Column(name = "date")
-    private Timestamp date;
+    private Date date;
     @Column
     private Integer number;
+
+    public PersonService() {
+        date = new Date();
+    }
 
     public Integer getId() {
         return id;
@@ -39,24 +52,44 @@ public class PersonService implements Serializable {
         this.id = id;
     }
 
-    public Client getClient() {
-        return client;
+    public Integer getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
-    public Person getPerson() {
-        return person;
+    public Integer getPersonId() {
+        return personId;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
     }
 
     public Integer getAppointmentId() {
         return appointmentId;
+    }
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public Integer getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Integer getNumber() {
@@ -66,53 +99,4 @@ public class PersonService implements Serializable {
     public void setNumber(Integer number) {
         this.number = number;
     }
-
-    public void setAppointmentId(Integer appointmentId) {
-        this.appointmentId = appointmentId;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        PersonService that = (PersonService) o;
-//
-//        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-//        if (client != null ? !client.equals(that.client) : that.client != null) return false;
-//        if (person != null ? !person.equals(that.person) : that.person != null) return false;
-//        if (appointment != null ? !appointment.equals(that.appointment) : that.appointment != null)
-//            return false;
-//        if (service != null ? !service.equals(that.service) : that.service != null) return false;
-//        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = id != null ? id.hashCode() : 0;
-//        result = 31 * result + (client != null ? client.hashCode() : 0);
-//        result = 31 * result + (person != null ? person.hashCode() : 0);
-//        result = 31 * result + (appointment != null ? appointment.hashCode() : 0);
-//        result = 31 * result + (service != null ? service.hashCode() : 0);
-//        result = 31 * result + (date != null ? date.hashCode() : 0);
-//        return result;
-//    }
 }
