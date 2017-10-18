@@ -1,0 +1,18 @@
+spring:
+    jpa:
+        database: postgresql
+        database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+        show-sql: true
+        hibernate.ddl-auto: validate
+        properties:
+            hibernate:
+                format_sql: true
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/ortofit
+        name: ortofit
+        username: ts
+        password: nehybrtn
+
+server:
+    port: 8090
