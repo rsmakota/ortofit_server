@@ -11,4 +11,5 @@ import java.util.List;
 public interface PersonServiceRepository extends JpaRepository<PersonService, Integer> {
     List<PersonService> findByAppointmentId(Integer id);
     List<PersonService> findByPersonId(Integer id);
+    List<PersonService> findByPersonIdAndAppointmentId(Integer personId, Integer appointmentId);
 }

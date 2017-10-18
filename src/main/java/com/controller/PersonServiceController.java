@@ -18,6 +18,14 @@ public class PersonServiceController {
     @Autowired
     private PersonServiceRepository repository;
 
+    @GetMapping(value = "/person_and_appointment/{peronId}/{appointmentId}")
+    public List<PersonService> getByPersonIdAndAppId(
+            @PathVariable(value = "peronId") Integer peronId,
+            @PathVariable(value = "appointmentId") Integer appointmentId
+            ) {
+        return repository.findByPersonIdAndAppointmentId(peronId, appointmentId);
+    }
+
     @GetMapping(value = "/person/{id}")
     public List<PersonService> getByPersonId(@PathVariable(value = "id") Integer id) {
         return repository.findByPersonId(id);
@@ -31,6 +39,14 @@ public class PersonServiceController {
     public PersonService crate(@RequestBody PersonService personService) {
         return repository.save(personService);
     }
+    @PutMapping(value = "/")
+    public PersonService update(@RequestBody PersonService personService) {
+        return repository.save(personService);
+    }
 
+    @DeleteMapping(value = "/{id}")
+    public void remove(@PathVariable(value = "id") Integer id) {
+        repository.delete(id);
+    }
 
 }
