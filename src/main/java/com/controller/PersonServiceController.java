@@ -44,9 +44,9 @@ public class PersonServiceController {
         return repository.save(personService);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void remove(@PathVariable(value = "id") Integer id) {
-        repository.delete(id);
+    @DeleteMapping(value = "/")
+    public void remove(@RequestBody PersonService personService) {
+        repository.delete(personService);
     }
 
 }
