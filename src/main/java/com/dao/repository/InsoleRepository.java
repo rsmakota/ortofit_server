@@ -13,5 +13,6 @@ import java.util.List;
  */
 @Repository
 public interface InsoleRepository extends JpaRepository<Insole, Integer> {
-    List<Insole> findByPersonId(Integer id);
+    List<Insole> findByAppointmentIdAndPersonId(Integer appointmentId, Integer personId);
+    void deleteAllByAppointmentIdAndPersonId(Integer appointmentId, Integer personId);
 }
