@@ -4,6 +4,7 @@ import com.dao.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 /**
@@ -14,5 +15,4 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
     public Client findByMsisdn(String msisdn);
-    public List<Client>
 }

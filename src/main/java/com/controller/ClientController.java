@@ -42,9 +42,9 @@ public class ClientController {
     }
 
     @GetMapping(value = "/list")
-    public Page<Client> list(@PageableDefault(size = 20) Pageable pageable, Principal principal, ClientWrapper params)
+    public Page<Client> list(@PageableDefault(size = 20) Pageable pageable)
     {
-
+        return service.findAll(pageable);
     }
 
     @PostMapping(value = "/")
