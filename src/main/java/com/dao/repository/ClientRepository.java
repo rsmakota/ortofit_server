@@ -4,6 +4,8 @@ import com.dao.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
  * @since 2017-09-29
@@ -12,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
     public Client findByMsisdn(String msisdn);
+    public List<Client>
 }

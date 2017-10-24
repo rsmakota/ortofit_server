@@ -3,6 +3,7 @@ package com.controller;
 import com.dao.model.Insole;
 import com.dao.repository.InsoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class InsoleController {
     }
 
     @PostMapping(value = "/group")
+    @Transactional
     public void createGroup(@RequestBody List<Insole> insoles) {
         if (insoles.size() < 1) {
             return;

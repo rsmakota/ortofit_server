@@ -6,7 +6,13 @@ import com.dao.repository.CountryRepository;
 import com.dao.service.ClientService;
 import com.requestWrapper.ClientWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -33,6 +39,12 @@ public class ClientController {
     public Client getClient(@PathVariable(value = "id") Integer id) {
 
         return service.findById(id);
+    }
+
+    @GetMapping(value = "/list")
+    public Page<Client> list(@PageableDefault(size = 20) Pageable pageable, Principal principal, ClientWrapper params)
+    {
+
     }
 
     @PostMapping(value = "/")

@@ -22,7 +22,7 @@ public class ServiceGroup implements Serializable {
     private String alias;
 
     @OneToMany(mappedBy = "serviceGroup", fetch = FetchType.EAGER)
-//    @OrderBy(value="name asc")
+    @OrderBy(value="name asc")
     private Set<Service> services;
 
     public Integer getId() {
