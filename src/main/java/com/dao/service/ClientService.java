@@ -36,7 +36,6 @@ public class ClientService {
     }
 
     public Page<Client> findAll(Pageable pageable) {
-//        PageRequest request = new PageRequest(pageNum - 1, PAGE_SIZE, Sort.Direction.DESC, "created");
         return repository.findAll(pageable);
     }
 }

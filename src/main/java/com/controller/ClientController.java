@@ -8,6 +8,7 @@ import com.requestWrapper.ClientWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,8 @@ public class ClientController {
     @GetMapping(value = "/list")
     public Page<Client> list(@PageableDefault(size = 20) Pageable pageable)
     {
+//        Sort sort = new Sort(Sort.Direction.DESC, "id");
+//        pageable.getSort().and(sort);
         return service.findAll(pageable);
     }
 
