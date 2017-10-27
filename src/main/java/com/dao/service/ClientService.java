@@ -38,4 +38,8 @@ public class ClientService {
     public Page<Client> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
+    public Page<Client> findAllByMsisdnContaining(String msisdn, Pageable pageable) {
+        return repository.findAllByMsisdnContaining(msisdn, pageable);
+    }
+
 }

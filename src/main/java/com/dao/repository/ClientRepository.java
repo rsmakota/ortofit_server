@@ -1,11 +1,11 @@
 package com.dao.repository;
 
 import com.dao.model.Client;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Pageable;
 
-import java.awt.print.Pageable;
-import java.util.List;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -15,4 +15,6 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
     public Client findByMsisdn(String msisdn);
+
+    public Page<Client> findAllByMsisdnContaining(String msisdn, Pageable pageable);
 }

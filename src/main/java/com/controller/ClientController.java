@@ -43,10 +43,11 @@ public class ClientController {
     }
 
     @GetMapping(value = "/list")
-    public Page<Client> list(@PageableDefault(size = 20) Pageable pageable)
+    public Page<Client> list(@RequestParam(value = "msisdn", required = false) String msisdn, @PageableDefault(size = 20) Pageable pageable)
     {
-//        Sort sort = new Sort(Sort.Direction.DESC, "id");
-//        pageable.getSort().and(sort);
+        if (msisdn != null) {
+            return service.findAllByMsisdnContaining(msisdn, pageable);
+        }
         return service.findAll(pageable);
     }
 
