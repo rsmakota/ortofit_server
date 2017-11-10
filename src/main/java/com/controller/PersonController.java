@@ -1,9 +1,7 @@
 package com.controller;
 
-import com.dao.model.Office;
 import com.dao.model.Person;
 import com.dao.repository.PersonRepository;
-import com.dao.service.IOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
