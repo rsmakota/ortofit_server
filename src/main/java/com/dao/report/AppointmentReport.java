@@ -18,6 +18,7 @@ public class AppointmentReport implements Serializable {
     private String doctorName;
     private String officeName;
     private Integer state;
+    private String serviceName;
     private List<PersonDataReport> personData;
     private List<AppointmentReason> reasons;
 
@@ -75,5 +76,13 @@ public class AppointmentReport implements Serializable {
 
     public void setReasons(List<AppointmentReason> reasons) {
         this.reasons = reasons;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 }

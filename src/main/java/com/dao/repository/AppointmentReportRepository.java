@@ -20,7 +20,7 @@ public class AppointmentReportRepository {
     private JdbcTemplate jdbcTemplate;
 
     public List<AppointmentReport> findByClientId(Integer clientId) {
-        String sql = "SELECT a.id, a.date_time, o.name,  u.name, s.name, a.state FROM " +
+        String sql = "SELECT a.id, a.date_time, o.name as office_name,  u.name as doctor_name, s.name as service_name, a.state FROM " +
                 "  appointments a " +
                 "  LEFT JOIN offices o ON o.id = a.office_id " +
                 "  LEFT JOIN services s ON s.id = a.service_id " +

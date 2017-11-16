@@ -20,6 +20,7 @@ public class AppointmentReportMapper implements RowMapper<AppointmentReport> {
         app.setDateTime(resultSet.getTimestamp("date_time"));
         app.setDoctorName(resultSet.getString("doctor_name"));
         app.setOfficeName(resultSet.getString("office_name"));
+        app.setServiceName(resultSet.getString("service_name"));
         app.setState(resultSet.getInt("state"));
 
         return app;
