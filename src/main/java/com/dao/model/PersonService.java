@@ -25,7 +25,6 @@ public class PersonService implements Serializable {
             }
     )
     @GeneratedValue(generator = "idPersonServiceGen")
-//    @SequenceGenerator(name = "idPersonServiceGen", schema = "public", sequenceName = "person_services_id_seq", allocationSize = 1)
     private Integer id;
     @Column(name = "client_id")
     private Integer clientId;
