@@ -25,6 +25,12 @@ public class AppointmentController {
         return service.findFull(id);
     }
 
+    @GetMapping(value = "/client/last/{clientId}")
+    public Appointment getLastSuccessByClientId(@PathVariable(value = "clientId") Integer clientId) {
+
+        return service.findLastByClientId(clientId, AppointmentState.Success.ordinal());
+    }
+
     @PostMapping("/")
     public Integer postAppointment(@RequestBody Appointment appointment) {
         appointment.setState(AppointmentState.New.ordinal());

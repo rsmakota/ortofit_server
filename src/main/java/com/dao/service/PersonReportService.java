@@ -29,7 +29,7 @@ public class PersonReportService {
 
         for (Person person : persons) {
             List<PersonService> personServiceList = personServiceRepository.findByPersonIdAndAppointmentId(person.getId(), appointmentId);
-            if (personServiceList == null) {
+            if (personServiceList == null || personServiceList.size() == 0) {
                 continue;
             }
             PersonDataReport personDataReport = new PersonDataReport();

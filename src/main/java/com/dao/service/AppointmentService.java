@@ -5,6 +5,7 @@ import com.dao.model.FullAppointmentData;
 import com.dao.model.Person;
 import com.dao.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,5 +48,9 @@ public class AppointmentService implements IAppointmentService {
 
     public Appointment update(Appointment appointment) {
         return repository.save(appointment);
+    }
+
+    public Appointment findLastByClientId(Integer clientId, Integer status) {
+        return repository.findFirstByClientIdAndStateOrderByIdDesc(clientId, status);
     }
 }

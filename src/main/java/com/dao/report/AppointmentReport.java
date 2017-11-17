@@ -34,7 +34,7 @@ public class AppointmentReport implements Serializable {
         return dateTime;
     }
 
-    public void setDateTime(Timestamp date_time) {
+    public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
     }
 
