@@ -1,8 +1,7 @@
 package com.dao.service;
 
-import com.dao.model.Appointment;
-import com.dao.model.CalendarBackgroudEvent;
-import com.dao.model.CalendarEvent;
+import com.response.model.CalendarBackgroudEvent;
+import com.response.model.CalendarEvent;
 import com.dao.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

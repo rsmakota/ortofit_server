@@ -1,6 +1,6 @@
-package com.dao.mapper;
+package com.response.mapper;
 
-import com.dao.model.CalendarBackgroudEvent;
+import com.response.model.CalendarBackgroudEvent;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

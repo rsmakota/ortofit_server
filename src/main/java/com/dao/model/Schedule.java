@@ -1,5 +1,7 @@
 package com.dao.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,14 +15,22 @@ import java.sql.Timestamp;
 @Table(name = "schedule", schema = "public", catalog = "ortofit")
 public class Schedule implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "idScheduleGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "schedule_id_seq"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator = "idScheduleGen")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @ManyToOne
-    @JoinColumn(name = "office_id")
-    private Office office;
+    @Column(name = "user_id")
+    private Integer userId;
+    @Column(name = "office_id")
+    private Integer officeId;
     @Column(name = "start_date")
     private Timestamp startDate;
     @Column(name = "end_date")
@@ -34,20 +44,20 @@ public class Schedule implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Office getOffice() {
-        return office;
+    public Integer getOfficeId() {
+        return officeId;
     }
 
-    public void setOffice(Office office) {
-        this.office = office;
+    public void setOfficeId(Integer officeId) {
+        this.officeId = officeId;
     }
 
     public Timestamp getStartDate() {
@@ -64,31 +74,5 @@ public class Schedule implements Serializable {
 
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Schedule schedule = (Schedule) o;
-
-        if (id != null ? !id.equals(schedule.id) : schedule.id != null) return false;
-        if (user != null ? !user.equals(schedule.user) : schedule.user != null) return false;
-        if (office != null ? !office.equals(schedule.office) : schedule.office != null) return false;
-        if (startDate != null ? !startDate.equals(schedule.startDate) : schedule.startDate != null) return false;
-        if (endDate != null ? !endDate.equals(schedule.endDate) : schedule.endDate != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (office != null ? office.hashCode() : 0);
-        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
-        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
-        return result;
     }
 }

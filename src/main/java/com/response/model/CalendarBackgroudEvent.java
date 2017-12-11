@@ -1,7 +1,8 @@
-package com.dao.model;
+package com.response.model;
+
+import com.response.model.ICalendarEvent;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>

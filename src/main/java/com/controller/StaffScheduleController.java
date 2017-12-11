@@ -1,7 +1,12 @@
 package com.controller;
 
+import com.dao.model.User;
+import com.dao.service.StaffScheduleService;
+import com.dao.service.UserService;
 import com.response.model.ICalendarEvent;
-import com.dao.service.ScheduleService;
+import com.dao.model.Schedule;
+import com.dao.repository.StaffScheduleRepository;
+import com.response.wrapper.StaffScheduleWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +25,13 @@ import java.util.List;
  * Copyright  "Commercegate LTD"
  */
 @RestController
-@RequestMapping(value = "/api/schedule")
-public class ScheduleController {
+@RequestMapping(value = "/api/staff_schedule")
+public class StaffScheduleController {
 
     @Autowired
-    private ScheduleService service;
-
+    private StaffScheduleService service;
+    @Autowired
+    private UserService userService;
     @GetMapping(value = "/")
     public List<ICalendarEvent> getAppointment(
             @RequestParam(value = "start") String start,
@@ -37,22 +43,29 @@ public class ScheduleController {
         String to   = end + " 00:00:00";
         Timestamp timestampFrom;
         Timestamp timestampTo;
+        User doctor = (doctorId != null) ? userService.find(doctorId) : null;
+
         List<ICalendarEvent> allEvents = new ArrayList<>();
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             Date parsedDateFrom         = dateFormat.parse(from);
             Date parsedDateTo           = dateFormat.parse(to);
 
-            timestampFrom = new java.sql.Timestamp(parsedDateFrom.getTime());
-            timestampTo   = new java.sql.Timestamp(parsedDateTo.getTime());
+            timestampFrom = new Timestamp(parsedDateFrom.getTime());
+            timestampTo   = new Timestamp(parsedDateTo.getTime());
 
         } catch(Exception e) { //this generic but you can control another types of exception
             timestampFrom = new Timestamp(System.currentTimeMillis() - 100000);
             timestampTo = new Timestamp(System.currentTimeMillis());
         }
+        List<Schedule> schedules = service.findByRange(timestampFrom, timestampTo, officeId, doctorId);
 
-        allEvents.addAll(service.findEvents(timestampFrom, timestampTo, officeId, doctorId));
-        allEvents.addAll(service.findBackgroundEvents(timestampFrom, timestampTo, officeId, doctorId));
+        for (Schedule schedule: schedules) {
+            if (doctorId == null) {
+                doctor = userService.find(schedule.getUserId());
+            }
+            allEvents.add(new StaffScheduleWrapper(schedule, doctor));
+        }
         return allEvents;
     }
 }

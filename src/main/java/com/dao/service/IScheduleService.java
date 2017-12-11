@@ -1,7 +1,7 @@
 package com.dao.service;
 
-import com.dao.model.CalendarBackgroudEvent;
-import com.dao.model.CalendarEvent;
+import com.response.model.CalendarBackgroudEvent;
+import com.response.model.CalendarEvent;
 
 import java.sql.Timestamp;
 import java.util.List;

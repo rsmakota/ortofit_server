@@ -1,4 +1,4 @@
-package com.dao.model;
+package com.response.model;
 
 import java.sql.Timestamp;
 

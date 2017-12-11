@@ -1,9 +1,9 @@
 package com.dao.repository;
 
-import com.dao.mapper.CalendarBackgroundEventMapper;
-import com.dao.mapper.CalendarEventMapper;
-import com.dao.model.CalendarBackgroudEvent;
-import com.dao.model.CalendarEvent;
+import com.response.mapper.CalendarBackgroundEventMapper;
+import com.response.mapper.CalendarEventMapper;
+import com.response.model.CalendarBackgroudEvent;
+import com.response.model.CalendarEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
