@@ -8,10 +8,7 @@ import com.dao.model.Schedule;
 import com.dao.repository.StaffScheduleRepository;
 import com.response.wrapper.StaffScheduleWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -32,6 +29,8 @@ public class StaffScheduleController {
     private StaffScheduleService service;
     @Autowired
     private UserService userService;
+    @Autowired
+    private StaffScheduleRepository repository;
     @GetMapping(value = "/")
     public List<ICalendarEvent> getAppointment(
             @RequestParam(value = "start") String start,
@@ -68,4 +67,17 @@ public class StaffScheduleController {
         }
         return allEvents;
     }
+    @PostMapping(value = "/")
+    public Schedule create(@RequestBody Schedule schedule) {
+        return repository.save(schedule);
+    }
+    @PutMapping(value = "/")
+    public Schedule update(@RequestBody Schedule schedule) {
+        return repository.save(schedule);
+    }
+    @DeleteMapping(value = "/")
+    public void del(@RequestBody Schedule schedule) {
+        repository.delete(schedule);
+    }
+
 }
