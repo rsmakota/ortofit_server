@@ -67,6 +67,10 @@ public class StaffScheduleController {
         }
         return allEvents;
     }
+    @GetMapping(value = "/{id}")
+    public Schedule getSchedule(@PathVariable(value = "id") Integer id) {
+        return repository.findOne(id);
+    }
     @PostMapping(value = "/")
     public Schedule create(@RequestBody Schedule schedule) {
         return repository.save(schedule);
@@ -76,8 +80,8 @@ public class StaffScheduleController {
         return repository.save(schedule);
     }
     @DeleteMapping(value = "/")
-    public void del(@RequestBody Schedule schedule) {
-        repository.delete(schedule);
+    public void del(@RequestBody Integer scheduleId) {
+        repository.delete(scheduleId);
     }
 
 }
