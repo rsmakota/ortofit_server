@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
+
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -14,7 +16,9 @@ import org.springframework.data.domain.Pageable;
  */
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
-    public Client findByMsisdn(String msisdn);
+    Client findByMsisdn(String msisdn);
 
-    public Page<Client> findAllByMsisdnContaining(String msisdn, Pageable pageable);
+    Page<Client> findAllByMsisdnContaining(String msisdn, Pageable pageable);
+
+    Integer countClientByClientDirectionIdAndCreatedBetween(Integer clientDirectionId, Date from, Date to);
 }

@@ -1,11 +1,7 @@
 package com.controller;
 
 import com.dao.model.AppRemind;
-import com.dao.model.Appointment;
-import com.dao.model.FullAppointmentData;
 import com.dao.repository.AppRemindRepository;
-import com.dao.service.AppointmentService;
-import com.dao.type.AppointmentState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
