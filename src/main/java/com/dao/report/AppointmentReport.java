@@ -1,8 +1,6 @@
 package com.dao.report;
 
 import com.dao.model.AppointmentReason;
-import com.dao.model.Reason;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;

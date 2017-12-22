@@ -11,4 +11,5 @@ import java.util.List;
 public interface AppRemindRepository extends JpaRepository<AppRemind, Integer> {
     List<AppRemind> findByAppointmentId(Integer id);
     List<AppRemind> findByAppointmentIdAndPersonId(Integer appId, Integer personId);
+    Integer countAllByProcessed(Boolean processed);
 }

@@ -1,8 +1,12 @@
 package com.controller;
 
 import com.dao.model.ClientDirection;
+import com.dao.model.Office;
+import com.dao.repository.AppointmentRepository;
 import com.dao.repository.ClientDirectionsRepository;
 import com.dao.repository.ClientRepository;
+import com.dao.repository.OfficeRepository;
+import com.dao.type.AppointmentState;
 import com.response.model.LineChartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +30,10 @@ public class ChartController {
     private ClientDirectionsRepository directionsRepository;
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private OfficeRepository officeRepository;
+    @Autowired
+    private AppointmentRepository appRepository;
 
     @GetMapping(value="/new_client_by_directions")
     public List<LineChartItem> newClientsByDirections (
@@ -42,6 +50,28 @@ public class ChartController {
             List<Integer> data = new ArrayList<>();
             for (MonthDate mDate: months) {
                 Integer val = clientRepository.countClientByClientDirectionIdAndCreatedBetween(direction.getId(), mDate.firstDay, mDate.lastDate);
+                data.add(val);
+            }
+            item.setData(data);
+            result.add(item);
+        }
+
+        return result;
+    }
+    @GetMapping(value="/success_app_by_offices")
+    public List<LineChartItem> successAppByOffices(
+            @RequestParam(value = "start") String start,
+            @RequestParam(value = "end") String end
+    )throws Exception {
+        List <MonthDate> months = getListMonths(start, end);
+        List<Office> offices = officeRepository.findAll();
+        List<LineChartItem> result = new ArrayList<>();
+        for (Office office: offices) {
+            LineChartItem item = new LineChartItem();
+            item.setName(office.getName());
+            List<Integer> data = new ArrayList<>();
+            for (MonthDate mDate : months) {
+                Integer val = appRepository.countAppointmentByOfficeIdAndDateTimeBetweenAndState(office.getId(), mDate.firstDay, mDate.lastDate, AppointmentState.Success.ordinal());
                 data.add(val);
             }
             item.setData(data);
