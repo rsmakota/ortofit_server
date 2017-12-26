@@ -24,6 +24,8 @@ public class AppRemindReportMapper implements RowMapper<AppRemindReport> {
         app.setDescription(resultSet.getString("description"));
         app.setPersonId(resultSet.getInt("personId"));
         app.setClientId(resultSet.getInt("clientId"));
+        app.setOfficeId(resultSet.getInt("officeId"));
+        app.setDoctorId(resultSet.getInt("doctorId"));
         app.setMsisdn(resultSet.getString("msisdn"));
         app.setClientName(resultSet.getString("clientName"));
         app.setServiceNameList(resultSet.getString("serviceNameList"));

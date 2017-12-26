@@ -29,6 +29,8 @@ public class AppRemindJdbcRepository {
                 "  a.date_time as appDateTime," +
                 "  c.id as clientId," +
                 "  c.msisdn," +
+                "  a.user_id as doctorId, "+
+                "  a.office_id as officeId, "+
                 "  c.name as clientName," +
                 "  (SELECT string_agg(DISTINCT s.name, ', ') FROM person_services ps LEFT JOIN services s ON ps.service_id = s.id WHERE ps.appointment_id = a.id ) as serviceNameList " +
                 "  FROM app_reminders ar " +

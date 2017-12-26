@@ -23,6 +23,9 @@ public class AppRemindReport implements Serializable {
     private String ServiceNameList;
     private Integer appointmentId;
     private Timestamp appointmentDateTime;
+    private Integer doctorId;
+    private Integer officeId;
+
 
     public Integer getId() {
         return id;
@@ -110,5 +113,21 @@ public class AppRemindReport implements Serializable {
 
     public void setAppointmentDateTime(Timestamp appointmentDateTime) {
         this.appointmentDateTime = appointmentDateTime;
+    }
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Integer getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Integer officeId) {
+        this.officeId = officeId;
     }
 }
