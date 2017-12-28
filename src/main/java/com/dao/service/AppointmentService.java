@@ -9,6 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
  * @since 2017-05-16
@@ -53,4 +56,5 @@ public class AppointmentService implements IAppointmentService {
     public Appointment findLastByClientId(Integer clientId, Integer status) {
         return repository.findFirstByClientIdAndStateOrderByIdDesc(clientId, status);
     }
+
 }

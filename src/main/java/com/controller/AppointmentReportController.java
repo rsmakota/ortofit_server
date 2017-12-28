@@ -1,10 +1,12 @@
 package com.controller;
 
 import com.dao.report.AppointmentReport;
+import com.dao.report.TotalReport;
 import com.dao.service.AppointmentReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -24,5 +26,11 @@ public class AppointmentReportController {
 
         return service.findByClientId(client_id);
     }
+    @GetMapping(value = "/total")
+    public List<TotalReport> getTotalReport(@RequestParam(value = "from") Timestamp from,
+                                            @RequestParam(value = "to") Timestamp to,
+                                            @RequestParam(value = "officeId") Integer officeId) {
 
+        return service.findTotals(from, to, officeId);
+    }
 }

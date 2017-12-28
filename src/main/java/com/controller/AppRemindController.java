@@ -48,6 +48,10 @@ public class AppRemindController {
     public AppRemind putAppRemind(@RequestBody AppRemind appRemind) {
         return repository.save(appRemind);
     }
+    @DeleteMapping("/")
+    public void putAppRemind(@RequestBody Integer id) {
+        repository.delete(id);
+    }
 
     @GetMapping(value = "/list")
     public Page<AppRemindReport> list(@RequestParam(value = "msisdn", required = false) String msisdn, @PageableDefault(size = 20) Pageable pageable) {
