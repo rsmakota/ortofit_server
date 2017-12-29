@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "orders", schema = "public", catalog = "ortofit")
-public class Order implements Serializable{
+public class Order implements Serializable {
     @Id
     @GenericGenerator(
             name = "idOrderGen",
@@ -28,12 +28,10 @@ public class Order implements Serializable{
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
-    @ManyToOne
-    @JoinColumn(name = "application_id")
-    private Application application;
-    @ManyToOne
-    @JoinColumn(name = "service_id")
-    private Service service;
+    @Column(name = "application_id")
+    private Integer applicationId;
+    @Column(name = "service_id")
+    private Integer serviceId;
     @Column(name = "created")
     private Timestamp created;
     @Column(name = "processed")
@@ -55,20 +53,20 @@ public class Order implements Serializable{
         this.client = client;
     }
 
-    public Application getApplication() {
-        return application;
+    public Integer getApplicationId() {
+        return applicationId;
     }
 
-    public void setApplication(Application application) {
-        this.application = application;
+    public void setApplicationId(Integer applicationId) {
+        this.applicationId = applicationId;
     }
 
-    public Service getService() {
-        return service;
+    public Integer getServiceId() {
+        return serviceId;
     }
 
-    public void setService(Service service) {
-        this.service = service;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
 
     public Timestamp getCreated() {
