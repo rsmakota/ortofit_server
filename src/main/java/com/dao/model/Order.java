@@ -1,5 +1,6 @@
 package com.dao.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,7 +14,16 @@ import java.sql.Timestamp;
 @Table(name = "orders", schema = "public", catalog = "ortofit")
 public class Order implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "idOrderGen",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "orders_id_seq"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            }
+    )
+    @GeneratedValue(generator = "idOrderGen")
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -77,32 +87,4 @@ public class Order implements Serializable{
         this.processed = processed;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Order order = (Order) o;
-
-        if (id != null ? !id.equals(order.id) : order.id != null) return false;
-        if (client != null ? !client.equals(order.client) : order.client != null) return false;
-        if (application != null ? !application.equals(order.application) : order.application != null)
-            return false;
-        if (service != null ? !service.equals(order.service) : order.service != null) return false;
-        if (created != null ? !created.equals(order.created) : order.created != null) return false;
-        if (processed != null ? !processed.equals(order.processed) : order.processed != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (client != null ? client.hashCode() : 0);
-        result = 31 * result + (application != null ? application.hashCode() : 0);
-        result = 31 * result + (service != null ? service.hashCode() : 0);
-        result = 31 * result + (created != null ? created.hashCode() : 0);
-        result = 31 * result + (processed != null ? processed.hashCode() : 0);
-        return result;
-    }
 }

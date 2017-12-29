@@ -79,4 +79,8 @@ public class AppointmentReportService {
 
         return report;
     }
+
+    public List<SettlementReport> findSettlements(Timestamp from, Timestamp to) {
+        return appointmentReportRepository.findSettlementReport(from, to);
+    }
 }

@@ -1,13 +1,7 @@
 package com.dao.repository;
 
-import com.dao.mapper.AppointmentReportMapper;
-import com.dao.mapper.ForwardReportMapper;
-import com.dao.mapper.InsoleReportMapper;
-import com.dao.mapper.ServiceReportMapper;
-import com.dao.report.AppointmentReport;
-import com.dao.report.ForwardReport;
-import com.dao.report.InsoleReport;
-import com.dao.report.ServiceReport;
+import com.dao.mapper.*;
+import com.dao.report.*;
 import com.dao.type.AppointmentState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -69,5 +63,13 @@ public class AppointmentReportRepository {
                 "and a.office_id = ? and a.user_id = ? GROUP BY it.name";
 
         return jdbcTemplate.query(sql, new Object[] {AppointmentState.Success.ordinal(), from, to, officeId, userId}, new InsoleReportMapper());
+    }
+
+    public List<SettlementReport> findSettlementReport(Timestamp from, Timestamp to) {
+        String sql = "SELECT a.forwarder as name, COUNT(a.id) as total FROM appointments a " +
+                "WHERE a.state = ? and a.date_time > ? AND a.date_time < ? " +
+                "and a.forwarder IS NOT NULL and a.forwarder != '' GROUP BY a.forwarder ORDER BY a.forwarder ";
+
+        return jdbcTemplate.query(sql, new Object[] {AppointmentState.Success.ordinal(), from, to}, new SettlementReportMapper());
     }
 }

@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dao.report.AppointmentReport;
+import com.dao.report.SettlementReport;
 import com.dao.report.TotalReport;
 import com.dao.service.AppointmentReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,13 @@ public class AppointmentReportController {
 
         return service.findTotals(from, to, officeId);
     }
+
+    @GetMapping(value = "/settlement")
+    public List<SettlementReport> getSettlementReport(@RequestParam(value = "from") Timestamp from,
+                                                      @RequestParam(value = "to") Timestamp to) {
+
+        return service.findSettlements(from, to);
+    }
+
+
 }
