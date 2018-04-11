@@ -42,6 +42,30 @@ public class AppRemindJdbcRepository {
         return jdbcTemplate.query(sql, new Object[] {limit, offset},new AppRemindReportMapper());
     }
 
+    public List<AppRemindReport> findActive(Integer limit, Integer officeId) {
+        String sql = "SELECT" +
+                "  ar.id," +
+                "  ar.date_time as dateTime," +
+                "  ar.appointment_id as appointmentId," +
+                "  ar.processed," +
+                "  ar.description," +
+                "  ar.person_id as personId," +
+                "  a.date_time as appDateTime," +
+                "  c.id as clientId," +
+                "  c.msisdn," +
+                "  a.user_id as doctorId, "+
+                "  a.office_id as officeId, "+
+                "  c.name as clientName," +
+                "  (SELECT string_agg(DISTINCT s.name, ', ') FROM person_services ps LEFT JOIN services s ON ps.service_id = s.id WHERE ps.appointment_id = a.id ) as serviceNameList " +
+                "  FROM app_reminders ar " +
+                "    LEFT JOIN appointments a ON ar.appointment_id = a.id " +
+                "    LEFT JOIN clients c ON a.client_id = c.id " +
+                "WHERE ar.processed = false AND ar.date_time < NOW() AND a.office_id = ? " +
+                "ORDER BY ar.date_time ASC LIMIT ?  ";
+
+        return jdbcTemplate.query(sql, new Object[] {officeId, limit},new AppRemindReportMapper());
+    }
+
     public Integer countAllActive(String msisdn) {
         String subSql = (null != msisdn) ? " AND c.msisdn LIKE '%"+msisdn+"%' " : "";
         String sql = "SELECT COUNT(ar.id)" +

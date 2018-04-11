@@ -1,16 +1,19 @@
 package com.controller;
 
 import com.dao.model.AppRemind;
+import com.dao.model.Order;
 import com.dao.report.AppRemindReport;
 import com.dao.repository.AppRemindJdbcRepository;
 import com.dao.repository.AppRemindRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -60,5 +63,19 @@ public class AppRemindController {
         Page<AppRemindReport> pages = new PageImpl<>(reminds, pageable, total);
 
         return pages;
+    }
+
+    @GetMapping(value = "/active")
+    public List<AppRemindReport> actual(@RequestParam(value = "limit") Integer limit, @RequestParam(value = "officeId") Integer officeId) {
+        return jdbcRepository.findActive(limit, officeId);
+    }
+    @GetMapping(value = "/process/{id}")
+    public void process(@PathVariable(value = "id") Integer id) {
+        AppRemind remind = repository.findOne(id);
+        if (remind == null) {
+            return;
+        }
+        remind.setProcessed(true);
+        repository.save(remind);
     }
 }
