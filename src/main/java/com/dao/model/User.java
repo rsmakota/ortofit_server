@@ -62,7 +62,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @JsonIgnore
+//    @JsonIgnore
     @Column(name = "last_login")
     private Timestamp lastLogin;
 

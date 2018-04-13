@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.dao.model.Group;
 import com.dao.model.Role;
 import com.dao.model.User;
 import com.pojos.UserRegistration;
@@ -8,7 +9,9 @@ import com.dao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
@@ -56,5 +59,15 @@ public class UserController {
     public List<User> all() {
         return userService.all();
     }
+    @GetMapping(value = "/")
+    public User current(Principal principal) {
+        return userService.getUser(principal.getName());
+    }
+
+    @GetMapping(value = "/group")
+    public Set<Group> currentGroups(Principal principal) {
+        return userService.getUser(principal.getName()).getGroups();
+    }
+
 
 }
