@@ -6,9 +6,12 @@ import com.dao.model.User;
 import com.pojos.UserRegistration;
 import com.dao.service.RoleService;
 import com.dao.service.UserService;
+import com.request.UserEmail;
+import com.request.UserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.Expression;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +27,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleService roleService;
 
     @PostMapping(value = "/")
     public String register(@RequestBody UserRegistration userRegistration) {
@@ -34,16 +35,15 @@ public class UserController {
         } else if (userService.getUser(userRegistration.getUsername()) != null) {
             return "User already exist";
         }
-        Role role = roleService.getRole("ROLE_CLIENT");
-        // input sanitization
+
+        String password = userService.getPasswordEncoder().encode(userRegistration.getPassword());
         User user = new User();
         user.setUsername(userRegistration.getUsername());
         user.setName(userRegistration.getUsername());
         user.setUsernameCanonical(userRegistration.getUsername());
         user.setEmail(userRegistration.getEmail());
         user.setEmailCanonical(userRegistration.getEmail());
-        user.setPassword(userRegistration.getPassword());
-//        user.setRoles(Arrays.asList(role));
+        user.setPassword(password);
         user.setSalt("");
 
         userService.save(user);
@@ -68,6 +68,29 @@ public class UserController {
     public Set<Group> currentGroups(Principal principal) {
         return userService.getUser(principal.getName()).getGroups();
     }
+
+    @PutMapping(value = "/change_password")
+    public User changePassword(@RequestBody UserPassword userPassword) throws Exception {
+        User user = userService.find(userPassword.getId());
+        if (null == user || !userPassword.getPassword().equals(userPassword.getPasswordConfirmation())) {
+            throw new Exception("Undefined user or password");
+        }
+        String password = userService.getPasswordEncoder().encode(userPassword.getPassword());
+        user.setPassword(password);
+        userService.save(user);
+
+        return user;
+    }
+
+    @PutMapping(value = "/change_email")
+    public User changeEmail(@RequestBody UserEmail userEmail) throws Exception {
+        User user = userService.find(userEmail.getId());
+        user.setPassword(userEmail.getEmail());
+        userService.save(user);
+
+        return user;
+    }
+
 
 
 }

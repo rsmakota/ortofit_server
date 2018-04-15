@@ -3,8 +3,6 @@ package com.dao.service;
 import com.dao.model.User;
 import com.dao.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +16,14 @@ public class UserService implements IUserService{
     @Autowired
     private UserRepository repo;
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return new BCryptPasswordEncoder();
+    @Autowired
+    private PasswordEncoder encoder;
+
+    public PasswordEncoder getPasswordEncoder() {
+        return encoder;
     }
 
-    public void save(User user){
-        user.setPassword(getPasswordEncoder().encode(user.getPassword()));
+    public void save(User user) {
         repo.save(user);
     }
 

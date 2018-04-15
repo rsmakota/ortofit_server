@@ -1,10 +1,8 @@
 package com.controller;
 
 import com.dao.model.Client;
-import com.dao.model.Country;
 import com.dao.repository.CountryRepository;
 import com.dao.service.ClientService;
-import com.requestWrapper.ClientWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,9 +20,6 @@ public class ClientController {
 
     @Autowired
     private ClientService service;
-
-    @Autowired
-    private CountryRepository countryRepository;
 
     @GetMapping(value = "/msisdn/{msisdn}")
     public Client getClient(@PathVariable(value = "msisdn") String msisdn) {

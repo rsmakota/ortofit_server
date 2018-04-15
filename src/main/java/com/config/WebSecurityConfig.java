@@ -1,6 +1,5 @@
 package com.config;
 
-import com.http.CORSFilter;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
