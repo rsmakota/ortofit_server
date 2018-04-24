@@ -1,7 +1,10 @@
 package com.request;
 
+import org.hibernate.validator.constraints.Email;
+
 public class UserEmail {
     private Integer id;
+    @Email
     private String email;
 
     public Integer getId() {

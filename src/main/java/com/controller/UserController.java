@@ -8,6 +8,10 @@ import com.dao.service.RoleService;
 import com.dao.service.UserService;
 import com.request.UserEmail;
 import com.request.UserPassword;
+import com.response.FailResponse;
+import com.response.IResponse;
+import com.response.SuccessResponse;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,27 +74,65 @@ public class UserController {
     }
 
     @PutMapping(value = "/change_password")
-    public User changePassword(@RequestBody UserPassword userPassword) throws Exception {
-        User user = userService.find(userPassword.getId());
-        if (null == user || !userPassword.getPassword().equals(userPassword.getPasswordConfirmation())) {
-            throw new Exception("Undefined user or password");
-        }
-        String password = userService.getPasswordEncoder().encode(userPassword.getPassword());
-        user.setPassword(password);
-        userService.save(user);
+    public IResponse changePassword(@RequestBody UserPassword userPassword, Principal principal) {
+        try {
+            User user = userService.find(userPassword.getId());
 
-        return user;
+            if (null == user) {
+                throw new Exception("Undefined user");
+            }
+
+            Set<Group> groups = user.getGroups();
+            if (!principal.getName().equals(user.getUsername()) && !isAdmin(groups)) {
+                throw new Exception("You can't change others password");
+            }
+
+            if(userPassword.getPassword().length() < 6) {
+                throw new Exception("Password is too short");
+            }
+
+            if (!userPassword.getPassword().equals(userPassword.getPasswordConfirmation())) {
+                throw new Exception("Password and confirmation are not equal");
+            }
+
+            String password = userService.getPasswordEncoder().encode(userPassword.getPassword());
+            user.setPassword(password);
+            userService.save(user);
+
+            return new SuccessResponse();
+        } catch (Exception e) {
+            return new FailResponse(0, e.getMessage());
+        }
     }
 
     @PutMapping(value = "/change_email")
-    public User changeEmail(@RequestBody UserEmail userEmail) throws Exception {
-        User user = userService.find(userEmail.getId());
-        user.setPassword(userEmail.getEmail());
-        userService.save(user);
+    public IResponse changeEmail(@RequestBody UserEmail userEmail, Principal principal) {
+        try {
+            User user = userService.find(userEmail.getId());
+            if (null == user) {
+                throw new Exception("Undefined user");
+            }
+            Set<Group> groups = user.getGroups();
+            if (!principal.getName().equals(user.getUsername()) && !isAdmin(groups)) {
+                throw new Exception("You can't change others email");
+            }
+            user.setPassword(userEmail.getEmail());
+            userService.save(user);
 
-        return user;
+            return new SuccessResponse();
+        } catch (Exception e) {
+            return new FailResponse(0, e.getMessage());
+        }
     }
 
+    private Boolean isAdmin(Set<Group> groups) {
+        for (Group group: groups) {
+            if (group.getName().equals("Admin")) {
+                return true;
+            }
+        }
 
+        return false;
+    }
 
 }
