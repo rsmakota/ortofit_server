@@ -4,6 +4,8 @@ import com.dao.model.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
  * @since 2017-08-14

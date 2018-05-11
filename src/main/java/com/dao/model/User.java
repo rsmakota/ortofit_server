@@ -1,6 +1,11 @@
 package com.dao.model;
 
+import com.Serialize.GroupSerialie;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
@@ -16,7 +21,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users", schema = "public", catalog = "ortofit")
-//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="user_id")
 public class User implements Serializable {
 
     @Id
@@ -32,7 +36,7 @@ public class User implements Serializable {
     @GeneratedValue(generator = "idUserGen")
     private Integer id;
 
-    @JsonIgnore
+    @JsonIgnoreProperties({"users"})
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_groups", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
     private Set<Group> groups;
@@ -273,61 +277,4 @@ public class User implements Serializable {
         this.name = name;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        User user = (User) o;
-//
-//        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-//        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-//        if (usernameCanonical != null ? !usernameCanonical.equals(user.usernameCanonical) : user.usernameCanonical != null)
-//            return false;
-//        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-//        if (emailCanonical != null ? !emailCanonical.equals(user.emailCanonical) : user.emailCanonical != null)
-//            return false;
-//        if (enabled != null ? !enabled.equals(user.enabled) : user.enabled != null) return false;
-//        if (salt != null ? !salt.equals(user.salt) : user.salt != null) return false;
-//        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-//        if (lastLogin != null ? !lastLogin.equals(user.lastLogin) : user.lastLogin != null) return false;
-//        if (locked != null ? !locked.equals(user.locked) : user.locked != null) return false;
-//        if (expired != null ? !expired.equals(user.expired) : user.expired != null) return false;
-//        if (expiresAt != null ? !expiresAt.equals(user.expiresAt) : user.expiresAt != null) return false;
-//        if (confirmationToken != null ? !confirmationToken.equals(user.confirmationToken) : user.confirmationToken != null)
-//            return false;
-//        if (passwordRequestedAt != null ? !passwordRequestedAt.equals(user.passwordRequestedAt) : user.passwordRequestedAt != null)
-//            return false;
-//        if (roles != null ? !roles.equals(user.roles) : user.roles != null) return false;
-//        if (credentialsExpired != null ? !credentialsExpired.equals(user.credentialsExpired) : user.credentialsExpired != null)
-//            return false;
-//        if (credentialsExpireAt != null ? !credentialsExpireAt.equals(user.credentialsExpireAt) : user.credentialsExpireAt != null)
-//            return false;
-//        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = id != null ? id.hashCode() : 0;
-//        result = 31 * result + (username != null ? username.hashCode() : 0);
-//        result = 31 * result + (usernameCanonical != null ? usernameCanonical.hashCode() : 0);
-//        result = 31 * result + (email != null ? email.hashCode() : 0);
-//        result = 31 * result + (emailCanonical != null ? emailCanonical.hashCode() : 0);
-//        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
-//        result = 31 * result + (salt != null ? salt.hashCode() : 0);
-//        result = 31 * result + (password != null ? password.hashCode() : 0);
-//        result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
-//        result = 31 * result + (locked != null ? locked.hashCode() : 0);
-//        result = 31 * result + (expired != null ? expired.hashCode() : 0);
-//        result = 31 * result + (expiresAt != null ? expiresAt.hashCode() : 0);
-//        result = 31 * result + (confirmationToken != null ? confirmationToken.hashCode() : 0);
-//        result = 31 * result + (passwordRequestedAt != null ? passwordRequestedAt.hashCode() : 0);
-//        result = 31 * result + (roles != null ? roles.hashCode() : 0);
-//        result = 31 * result + (credentialsExpired != null ? credentialsExpired.hashCode() : 0);
-//        result = 31 * result + (credentialsExpireAt != null ? credentialsExpireAt.hashCode() : 0);
-//        result = 31 * result + (name != null ? name.hashCode() : 0);
-//        return result;
-//    }
 }

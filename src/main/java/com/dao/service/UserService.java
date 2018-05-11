@@ -13,11 +13,15 @@ import java.util.List;
 @Transactional
 public class UserService implements IUserService{
 
-    @Autowired
-    private UserRepository repo;
+    private final UserRepository repo;
+
+    private final PasswordEncoder encoder;
 
     @Autowired
-    private PasswordEncoder encoder;
+    public UserService(UserRepository repo, PasswordEncoder encoder) {
+        this.repo = repo;
+        this.encoder = encoder;
+    }
 
     public PasswordEncoder getPasswordEncoder() {
         return encoder;
@@ -40,4 +44,16 @@ public class UserService implements IUserService{
         return repo.findById(id);
     }
 
+    @Override
+    public void delete(User user) {
+        user.setGroups(null);
+        user.setEnabled(false);
+
+        repo.save(user);
+    }
+
+    public List<User> findAllActive()
+    {
+        return repo.findByEnabledTrue();
+    }
 }

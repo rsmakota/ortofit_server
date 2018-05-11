@@ -19,4 +19,5 @@ public interface IUserService {
     List<User> all();
     public User find(Integer id);
 
+    void delete(User user);
 }

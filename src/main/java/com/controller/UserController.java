@@ -29,8 +29,12 @@ import java.util.Set;
 @RequestMapping(value = "/api/user")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping(value = "/")
     public String register(@RequestBody UserRegistration userRegistration) {
@@ -60,8 +64,14 @@ public class UserController {
     }
 
     @GetMapping(value = "/all")
-    public List<User> all() {
-        return userService.all();
+    public List<User> all(Principal principal) throws Exception {
+        User user = userService.getUser(principal.getName());
+
+        if (!isAdmin(user.getGroups())) {
+            throw new Exception("You can't get user's list");
+        }
+
+        return userService.findAllActive();
     }
     @GetMapping(value = "/")
     public User current(Principal principal) {
@@ -116,13 +126,29 @@ public class UserController {
             if (!principal.getName().equals(user.getUsername()) && !isAdmin(groups)) {
                 throw new Exception("You can't change others email");
             }
-            user.setPassword(userEmail.getEmail());
+            user.setEmail(userEmail.getEmail());
             userService.save(user);
 
             return new SuccessResponse();
         } catch (Exception e) {
             return new FailResponse(0, e.getMessage());
         }
+    }
+    @DeleteMapping(value = "/")
+    public void delete(@RequestBody Integer userId, Principal principal) throws Exception {
+        User curUser = userService.getUser(principal.getName());
+
+        if (!isAdmin(curUser.getGroups())) {
+            throw new Exception("You can't delete a user");
+        }
+
+        User user = userService.find(userId);
+        if (null == user) {
+            throw new Exception("Can't find user with id " + userId);
+        }
+
+        userService.delete(user);
+
     }
 
     private Boolean isAdmin(Set<Group> groups) {

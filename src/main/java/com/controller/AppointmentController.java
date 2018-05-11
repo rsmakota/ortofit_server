@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/appointment")
 public class AppointmentController {
 
+    private final AppointmentService service;
+
     @Autowired
-    private AppointmentService service;
+    public AppointmentController(AppointmentService service) {
+        this.service = service;
+    }
 
     @GetMapping(value = "/{id}")
     public FullAppointmentData getAppointment(@PathVariable(value = "id") Integer id) {

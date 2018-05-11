@@ -1,5 +1,9 @@
 package com.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -11,7 +15,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "groups", schema = "public", catalog = "ortofit")
-
 public class Group implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class Group implements Serializable {
     private String name;
     @Column(name = "roles")
     private String roles;
-
+    @JsonIgnoreProperties({"groups"})
     @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
     @OrderBy(value="name asc")
     private Set<User> users;

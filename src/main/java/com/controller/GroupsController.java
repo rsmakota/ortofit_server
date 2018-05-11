@@ -1,7 +1,8 @@
 package com.controller;
 
-import com.dao.model.FamilyStatus;
-import com.dao.repository.FamilyStatusRepository;
+import com.dao.model.Group;
+
+import com.dao.service.IGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,22 +12,22 @@ import java.util.List;
 
 /**
  * @author Rodion Smakota <rsmakota@commercegate.com>
- * @since 2017-08-17
+ * @since 2018-05-10
  * Copyright  "Commercegate LTD"
  */
 @RestController
-@RequestMapping(value = "/api/family_status")
-public class FamilyStatusController {
-    private final FamilyStatusRepository repository;
+@RequestMapping(value = "/api/group")
+public class GroupsController {
+
+    private final IGroupService service;
 
     @Autowired
-    public FamilyStatusController(FamilyStatusRepository repository) {
-        this.repository = repository;
+    public GroupsController(IGroupService service) {
+        this.service = service;
     }
 
     @GetMapping(value = "/")
-    public List<FamilyStatus> getAll() {
-        return repository.findAll();
+    public List<Group> getAll() {
+        return service.findAll();
     }
-
 }
